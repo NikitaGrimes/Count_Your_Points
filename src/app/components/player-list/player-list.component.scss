@@ -117,12 +117,14 @@
     overflow: hidden;
     font-size: 18px;
     font-family: sans-serif;
+    border-collapse: collapse;
 
     tr{
         background-color: aliceblue;
 
         td{
             padding: 12px;
+            border-bottom: 2px solid rgb(3,155,230);
 
             &:first-child{
                 width: 49%;
