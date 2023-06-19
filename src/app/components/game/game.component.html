@@ -4,7 +4,7 @@
         <p class="text">POINTS</p>
         <p class="text">&#169; SoftClub edition</p>
     </div>
-    <button class="button button-new-game">
+    <button class="button button-new-game" (click)="startNewGame()">
         New game
     </button>
 </div>
@@ -19,39 +19,44 @@
             <p class="shot-username text">{{player.username}}</p>
             <div class="shot-result">
                 <input class="shot-input"/>
-                <button class="shot-factor">1x</button>
-                <button class="shot-factor">2x</button>
-                <button class="shot-factor">3x</button>
+                <div class="shot-factor-container">
+                    <button class="shot-factor shot-factor-active">1x</button>
+                    <button class="shot-factor">2x</button>
+                    <button class="shot-factor">3x</button>
+                </div>
             </div>
             <div class="shot-result">
                 <input class="shot-input"/>
-                <button class="shot-factor">1x</button>
-                <button class="shot-factor">2x</button>
-                <button class="shot-factor">3x</button>
+                <div class="shot-factor-container">
+                    <button class="shot-factor shot-factor-active">1x</button>
+                    <button class="shot-factor">2x</button>
+                    <button class="shot-factor">3x</button>
+                </div>
             </div>
             <div class="shot-result">
                 <input class="shot-input"/>
-                <button class="shot-factor">1x</button>
-                <button class="shot-factor">2x</button>
-                <button class="shot-factor">3x</button>
-            </div>
-        </div>
-    </div>
-    <button>Add</button>
-</div>
-<div>
-    <div>
-        <p>Username</p>
-    </div>
-    <div>
-        <p>0</p>
-        <div>
-            <div>
-                <div>
-                    501
+                <div class="shot-factor-container">
+                    <button class="shot-factor shot-factor-active">1x</button>
+                    <button class="shot-factor">2x</button>
+                    <button class="shot-factor">3x</button>
                 </div>
             </div>
         </div>
-        <div>i</div>
+    </div>
+    <button class="button button-add" (click)="addPoints()">Add</button>
+</div>
+<div class="game-board">
+    <div class="game-usernames">
+        <p class="text game-username" *ngFor="let player of players">{{player.username}}<span class="lider">&#9786;</span></p>
+    </div>
+    <div class="game-row" *ngFor="let move of playersPoints; index as i">
+        <p class="text game-move-number">{{length - i}}</p>
+        <div class="game-row-result">
+            <p class="game-point" *ngFor="let point of move">{{point}}</p>
+        </div>
+        <button class="text game-info">&#9432;</button>
+    </div>
+    <div class="game-zero-move">
+        <p class="game-point" *ngFor="let player of players">{{player.points}}</p>
     </div>
 </div>

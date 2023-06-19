@@ -6,5 +6,6 @@ export class Game501 extends Game{
 
     constructor(players: Player[]){
         super(players);
+        players.forEach(player => player.points = this.startPoint);
     }
 }

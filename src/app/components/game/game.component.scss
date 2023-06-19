@@ -3,13 +3,6 @@
     height: 35px;
     font-size: 16px;
     color: rgb(92, 92, 92);
-}
-
-.button-new-game{
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-right: 80px;
-    width: 150px;
     background-color: rgba(255, 215, 39, 0.9);
 
     &:hover{
@@ -21,6 +14,18 @@
         transform: scale(1);
         box-shadow: 0px 0px 8px #0007;
     }
+}
+
+.button-new-game{
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 80px;
+    width: 150px;
+}
+
+.button-add{
+    width: 30%;
+    margin-left: 35%;
 }
 
 .copyright{
@@ -50,9 +55,86 @@
     }
 }
 
+.game-board{
+    justify-content: center;
+    margin: 30px 60px 50px 80px;
+}
+
+.game-usernames{
+    padding-left: 60px;
+    padding-right: 60px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.game-zero-move{
+    height: 45px;
+    margin-left: 60px;
+    margin-right: 60px;
+    display: flex;
+    justify-content: space-around;
+    background-color: whitesmoke;
+    color: rgb(119, 119, 119);
+}
+
+.game-username{
+    text-align: center;
+    font-family: sans-serif;
+    width: 150px;
+}
+
+.game-point{
+    margin: 0px;
+    padding: 0px;
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: center;
+    font-family: sans-serif;
+    width: 150px;
+}
+
+.game-row{
+    display: flex;
+}
+
+.game-move-number{
+    width: 60px;
+    min-width: 60px;
+    text-align: center;
+}
+
+.game-row-result{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    height: 45px;
+    background-color: whitesmoke;
+    border-bottom: 2px solid rgb(3,155,230);
+    margin: 0px;
+}
+
+.game-info{
+    width: 60px;
+    min-width: 60px;
+    font-size: 18px;
+    text-align: center;
+    background-color: transparent;
+    border: none;
+    opacity: 0.6;
+
+    &:hover{
+        opacity: 1;
+
+        &:active{
+            transform: scale(0.95);
+        }
+    }
+}
+
 .shots-container{
     border-bottom: 2px solid #fff3;
-    padding-top: 50px;
+    padding-top: 10px;
+    padding-bottom: 30px;
 }
 
 .shots-header{
@@ -75,6 +157,7 @@
     justify-content: space-between;
     padding-left: 30px;
     padding-right: 30px;
+    margin-bottom: 50px;
 }
 
 .shots-body{
@@ -91,23 +174,61 @@
 
 .shot-result{
     margin-top: 4px;
+    display: flex;
 }
 
 .shot-input{
+    box-sizing: border-box;
     height: 30px;
     font-size: 18px;
     font-family: sans-serif;
     border: none;
     outline: none;
     width: 65px;
+    margin: 0px;
+    padding: 0px;
     border-radius: 4px 0px 0px 4px;
 }
 
+.shot-factor-container{
+    height: 30px;
+    width: 84px;
+    background-color: rgb(58, 58, 58);
+    display: flex;
+    justify-content: space-evenly;
+    border-radius: 0px 10px 10px 0px;
+}
+
 .shot-factor{
-    height: 32px;
-    width: 32px;
-    margin-top: -2px;
+    height: 24px;
+    width: 24px;
+    margin: 0px;
+    padding: 0px;
     border: none;
+    margin-top: auto;
+    margin-bottom: auto;
+    background-color: whitesmoke;
+
+    &:last-child{
+        border-radius: 0px 8px 8px 0px;
+    }
+
+    &:hover{
+        opacity: 0.8;
+
+        &:active{
+            transform: scale(0.95);
+        }
+    }
+}
+
+.shot-factor-active{
+    background-color: transparent;
+    color: whitesmoke;
+
+    &:hover{
+        opacity: 1;
+    }
 }
 
 .header{
@@ -119,4 +240,9 @@
 .text{
     font-family: sans-serif;
     color: whitesmoke;
+}
+
+.lider{
+    color: green;
+    font-size: 20px;
 }
