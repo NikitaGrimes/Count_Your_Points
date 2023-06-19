@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { GameTypes } from 'src/app/models/game-types';
 import { Player } from 'src/app/models/player';
+import { GameService } from 'src/app/services/game.service';
 import { PlayerService } from 'src/app/services/player.service';
 
 @Component({
@@ -11,11 +13,13 @@ import { PlayerService } from 'src/app/services/player.service';
 })
 export class PlayerListComponent implements OnInit{
   players: Player[] = [];
-  game301 = false;
-  game501 = false;
+  gameType?: GameTypes;
+  allGameTypes = GameTypes;
 
-  constructor(private playerService: PlayerService,
-    private router: Router){
+  constructor(
+    private playerService: PlayerService,
+    private router: Router,
+    private gameService: GameService){
     
   }
 
@@ -43,20 +47,20 @@ export class PlayerListComponent implements OnInit{
   chooseGame(game: number): void{
     switch(game){
       case 301:
-        this.game301 = true;
-        this.game501 = false;
+        this.gameType = GameTypes.Game301;
         break;
       case 501:
-        this.game301 = false;
-        this.game501 = true;
+        this.gameType = GameTypes.Game501
         break;
       default:
-        this.game301 = false;
-        this.game501 = false;
+        this.gameType = undefined;
     }
   }
 
   start(): void{
-    console.log("start");
+    if (this.gameType){
+      this.gameService.initGame(this.gameType);
+      this.router.navigate(["game"]);
+    }
   }
 }

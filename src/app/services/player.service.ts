@@ -6,8 +6,8 @@ import { Player } from '../models/player';
 })
 export class PlayerService {
   private players: Player[] = [
-    new Player("name", "email", 1),
-    new Player("name1", "email1", 2),
+    new Player("name", "email", 1, 0, true),
+    new Player("name1", "email1", 2, 0, true),
     new Player("name2", "email2", 3),
     new Player("name3", "email3", 4),
     new Player("name4", "email4", 5),
@@ -21,6 +21,10 @@ export class PlayerService {
 
   getPlayers(): Player[]{
     return this.players;
+  }
+  
+  getSelectedPlayers(): Player[]{
+    return this.players.filter(player => player.isSelected);
   }
 
   addPlayer(player: Player): void{

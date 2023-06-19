@@ -27,8 +27,8 @@
     </div>
     <p class="text text-select">Choose game</p>
     <div>
-        <button class="button-game" (click)="chooseGame(501)" [ngClass]="{'selected-game': game501}">501</button>
-        <button class="button-game" (click)="chooseGame(301)" [ngClass]="{'selected-game': game301}">301</button>
+        <button class="button-game" (click)="chooseGame(501)" [ngClass]="{'selected-game': gameType === allGameTypes.Game501}">501</button>
+        <button class="button-game" (click)="chooseGame(301)" [ngClass]="{'selected-game': gameType === allGameTypes.Game301}">301</button>
     </div>
-    <button class="button button-start" [disabled]="!(game301 || game501)" (click)="start()">Start</button>
+    <button class="button button-start" [disabled]="!(gameType)" (click)="start()">Start</button>
 </div>
