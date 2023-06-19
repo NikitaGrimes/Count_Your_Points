@@ -11,9 +11,8 @@ import { GameService } from 'src/app/services/game.service';
 })
 export class GameComponent implements OnInit{
   players: Player[] = [];
-  playersPoints: number[][] = [];
-  minPoints = 501;
-  length = 0;
+  prevPoints: number[][] = [];
+  test = [1, 1];
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor(
@@ -28,8 +27,7 @@ export class GameComponent implements OnInit{
   }
 
   addPoints(): void{
-    this.length++;
-    this.playersPoints.unshift([500 - this.length, 400 - this.length]);
+    console.log(this.test);
   }
 
   startNewGame(): void{

@@ -15,30 +15,57 @@
         <p class="shots-helper text">Dart 3</p>
     </div>
     <div class="shots-users">
-        <div class="shots-body" *ngFor="let player of players">
+        <div class="shots-body" *ngFor="let player of players; index as i">
             <p class="shot-username text">{{player.username}}</p>
             <div class="shot-result">
                 <input class="shot-input"/>
                 <div class="shot-factor-container">
-                    <button class="shot-factor shot-factor-active">1x</button>
-                    <button class="shot-factor">2x</button>
-                    <button class="shot-factor">3x</button>
+                    <div class="shot-radio-container">
+                        <input id="radio11{{i}}" type="radio" name="radio1{{i}}" value=1 [(ngModel)]="test[i]" checked/>
+                        <label for="radio11{{i}}">1x</label>
+                    </div>
+                    <div class="shot-radio-container">
+                        <input id="radio12{{i}}" type="radio" name="radio1{{i}}" value=2 [(ngModel)]="test[i]"/>
+                        <label for="radio12{{i}}">2x</label>
+                    </div>
+                    <div class="shot-radio-container">
+                        <input id="radio13{{i}}" type="radio" name="radio1{{i}}" value=3 [(ngModel)]="test[i]"/>
+                        <label class="shot-last-label" for="radio13{{i}}">3x</label>
+                    </div>
                 </div>
             </div>
             <div class="shot-result">
                 <input class="shot-input"/>
                 <div class="shot-factor-container">
-                    <button class="shot-factor shot-factor-active">1x</button>
-                    <button class="shot-factor">2x</button>
-                    <button class="shot-factor">3x</button>
+                    <div class="shot-radio-container">
+                        <input id="radio21{{i}}" type="radio" name="radio2{{i}}" checked value="1"/>
+                        <label for="radio21{{i}}">1x</label>
+                    </div>
+                    <div class="shot-radio-container">
+                        <input id="radio22{{i}}" type="radio" name="radio2{{i}}" value="2"/>
+                        <label for="radio22{{i}}">2x</label>
+                    </div>
+                    <div class="shot-radio-container">
+                        <input id="radio23{{i}}" type="radio" name="radio2{{i}}" value="3"/>
+                        <label class="shot-last-label" for="radio23{{i}}">3x</label>
+                    </div>
                 </div>
             </div>
             <div class="shot-result">
                 <input class="shot-input"/>
                 <div class="shot-factor-container">
-                    <button class="shot-factor shot-factor-active">1x</button>
-                    <button class="shot-factor">2x</button>
-                    <button class="shot-factor">3x</button>
+                    <div class="shot-radio-container">
+                        <input id="radio31{{i}}" type="radio" name="radio3{{i}}" checked value="1"/>
+                        <label for="radio31{{i}}">1x</label>
+                    </div>
+                    <div class="shot-radio-container">
+                        <input id="radio32{{i}}" type="radio" name="radio3{{i}}" value="2"/>
+                        <label for="radio32{{i}}">2x</label>
+                    </div>
+                    <div class="shot-radio-container">
+                        <input id="radio33{{i}}" type="radio" name="radio3{{i}}" value="3"/>
+                        <label class="shot-last-label" for="radio33{{i}}">3x</label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -49,8 +76,8 @@
     <div class="game-usernames">
         <p class="text game-username" *ngFor="let player of players">{{player.username}}<span class="lider">&#9786;</span></p>
     </div>
-    <div class="game-row" *ngFor="let move of playersPoints; index as i">
-        <p class="text game-move-number">{{length - i}}</p>
+    <div class="game-row" *ngFor="let move of prevPoints; index as i">
+        <p class="text game-move-number">{{prevPoints.length - i}}</p>
         <div class="game-row-result">
             <p class="game-point" *ngFor="let point of move">{{point}}</p>
         </div>
