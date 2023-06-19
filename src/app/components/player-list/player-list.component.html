@@ -7,28 +7,28 @@
     <p class="text text-select">Select players</p>
     <div class="container-instrument">
         <div class="container-search">
-            <input class="input-search" type="search" placeholder="Search"/>
+            <input #searchBox class="input-search" type="search" placeholder="Search" (input)="search(searchBox.value)"/>
             <span class="lupa"></span>
         </div>
-        <button class="button-add">New player</button>
+        <button class="button button-add" (click)="addPlayer()">New player</button>
     </div>
-    <table class="list-player">
-        <tr *ngFor="let player of players">
-            <td>
+    <div class="list-player">
+        <div class="list-row" *ngFor="let player of players" (click)="selectPlayer(player.id)" (keypress)="selectPlayer(player.id)" tabindex="1" [ngClass]="{'selected-player': player.isSelected}">
+            <div class="list-name">
                 {{player.username}}
-            </td>
-            <td>
+            </div>
+            <div class="list-email">
                 {{player.email}}
-            </td>
-            <td>
-                x
-            </td>
-        </tr>
-    </table>
+            </div>
+            <div class="list-remove">
+                <button class="button-delete" (click)="removePlayer(player.id)"> </button>
+            </div>
+        </div>
+    </div>
     <p class="text text-select">Choose game</p>
     <div>
-        <button class="button-game">501</button>
-        <button class="button-game">301</button>
+        <button class="button-game" (click)="chooseGame(501)" [ngClass]="{'selected-game': game501}">501</button>
+        <button class="button-game" (click)="chooseGame(301)" [ngClass]="{'selected-game': game301}">301</button>
     </div>
-    <button class="button-start">Start</button>
+    <button class="button button-start" [disabled]="!(game301 || game501)" (click)="start()">Start</button>
 </div>
