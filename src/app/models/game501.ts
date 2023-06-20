@@ -1,19 +1,69 @@
 import { Game } from "./game";
 import { Player } from "./player";
-import { DartShot } from "./dart-result";
+import { DartShot } from "./dart-shot";
 
 export class Game501 extends Game{
     startPoint = 501;
+    finishPoint = 0;
     dartInMove = 3;
+    movesCount = 0;
+    limitedMoves = 20;
+    additionalMoves = 10;
 
     constructor(players: Player[]){
         super(players);
         players.forEach(player => player.points = this.startPoint);
     }
 
-    pushShotsResult(shots: DartShot[][]): void {
+    pushShotsResult(shots: DartShot[][]): string[] | null {
+        this.movesCount++;
+        this.lastShotsPoints = new Array(this.players.length).fill(0);
         for (let i = 0; i < this.players.length; i++){
-            shots[i].forEach(shot => this.players[i].points -= shot.getShotResult());
+            const shotResult = shots[i].reduce((prevValue, shot) => shot.getShotResult() + prevValue, 0);
+            if (this.players[i].points - shotResult >= 2){
+                this.players[i].points -= shotResult;
+                this.lastShotsPoints[i] = shotResult;
+            }
+            else if (this.players[i].points - shotResult === this.finishPoint && this.checkLastDoubleShot(shots[i])){
+                this.players[i].points -= shotResult;
+                this.lastShotsPoints[i] = shotResult;
+                this.winners.push(this.players[i].username);
+                this.isFinished = true;
+            }
         }
+
+        if (this.movesCount >= this.limitedMoves){
+            this.isFinished = true;
+            const minPoints = Math.min(...this.getPlayersPoints());
+            if (this.getPlayersPoints().indexOf(minPoints) === this.getPlayersPoints().lastIndexOf(minPoints)){
+                this.winners.push(this.players[this.getPlayersPoints().indexOf(minPoints)].username);
+                this.isFinished = true;
+                return this.winners;
+            }
+            this.isFinished = false;
+        }
+
+        if (this.movesCount >= this.limitedMoves + this.additionalMoves)
+            this.isFinished = true;
+
+        if (this.isFinished)
+            return this.winners;
+
+        return null;
+    }
+
+    getClosestPoint(): number {
+        return Math.min(...this.players.map(player => player.points));
+    }
+
+    private checkLastDoubleShot(dartShots: DartShot[]): boolean{
+        for (let i = dartShots.length - 1; i >= 0; i--){
+            if (dartShots[i].isDoubleFactor() && dartShots[i].shot !== 0)
+                return true;
+            else if (dartShots[i].shot !== 0)
+                return false;
+        }
+
+        return false;
     }
 }

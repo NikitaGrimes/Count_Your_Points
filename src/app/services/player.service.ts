@@ -9,7 +9,7 @@ export class PlayerService {
     new Player("name", "email", 1, 0, true),
     new Player("name1", "email1", 2, 0, true),
     new Player("name2", "email2", 3),
-    new Player("name3", "email3", 4),
+    new Player("name3", "email3", 4, 0, true),
     new Player("name4", "email4", 5),
     new Player("name5", "email5", 6)
   ];

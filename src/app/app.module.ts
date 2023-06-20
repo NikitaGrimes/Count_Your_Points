@@ -6,13 +6,15 @@ import { AppRoutingModule } from './routing/app-routing.module';
 import { PlayerListComponent } from './components/player-list/player-list.component';
 import { AddPlayerComponent } from './components/add-player/add-player.component';
 import { GameComponent } from './components/game/game.component';
+import { WinnerPipe } from './services/winner.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddPlayerComponent,
     PlayerListComponent,
-    GameComponent
+    GameComponent,
+    WinnerPipe
   ],
   imports: [
     BrowserModule,

@@ -49,7 +49,7 @@ export class PlayerListComponent implements OnInit{
         this.gameType = GameTypes.Game301;
         break;
       case 501:
-        this.gameType = GameTypes.Game501
+        this.gameType = GameTypes.Game501;
         break;
       default:
         this.gameType = undefined;

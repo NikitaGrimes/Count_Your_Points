@@ -5,12 +5,12 @@
     color: rgb(92, 92, 92);
     background-color: rgba(255, 215, 39, 0.9);
 
-    &:hover{
+    &:hover:enabled{
         background-color: rgb(255, 215, 39);
         transform: scale(1.01);
     }
 
-    &:active{
+    &:active:enabled{
         transform: scale(1);
         box-shadow: 0px 0px 8px #0007;
     }
@@ -67,16 +67,6 @@
     justify-content: space-around;
 }
 
-.game-zero-move{
-    height: 45px;
-    margin-left: 60px;
-    margin-right: 60px;
-    display: flex;
-    justify-content: space-around;
-    background-color: whitesmoke;
-    color: rgb(119, 119, 119);
-}
-
 .game-username{
     text-align: center;
     font-family: sans-serif;
@@ -95,16 +85,24 @@
 
 .game-row{
     display: flex;
+    justify-content: center;
+
+    &:last-child{
+        color: rgb(119, 119, 119);
+    }
 }
 
 .game-move-number{
-    width: 60px;
-    min-width: 60px;
+    width: 5%;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0px;
 }
 
 .game-row-result{
-    width: 100%;
+    width: 90%;
     display: flex;
     justify-content: space-around;
     height: 45px;
@@ -114,8 +112,7 @@
 }
 
 .game-info{
-    width: 60px;
-    min-width: 60px;
+    width: 5%;
     font-size: 18px;
     text-align: center;
     background-color: transparent;
@@ -302,7 +299,25 @@
     color: whitesmoke;
 }
 
+.text-winner{
+    font-size: 28px;
+    display: flex;
+    padding: 0px;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
 .lider{
-    color: green;
-    font-size: 20px;
+    position: relative;
+
+    &::after{
+        position: absolute;
+        top: -4px;
+        content: "\263A";
+        color: green;
+        font-size: 20px;
+    }
 }

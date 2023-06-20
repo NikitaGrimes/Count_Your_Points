@@ -4,6 +4,7 @@
         <p class="text">POINTS</p>
         <p class="text">&#169; SoftClub edition</p>
     </div>
+    <p class="text text-winner">{{winners | winner}}</p>
     <button class="button button-new-game" (click)="startNewGame()">
         New game
     </button>
@@ -11,13 +12,13 @@
 <div class="shots-form">
     <div class="shots-container">
         <div class="shots-header">
-            <p class="shots-helper text" *ngFor="let dartNumber of dartsOnMove; index as i" >Dart {{i + 1}}</p>
+            <p class="shots-helper text" *ngFor="let dartNumber of dartsInMove; index as i" >Dart {{i + 1}}</p>
         </div>
         <form class="shots-from-group" [formGroup]="pointsForm">
             <div class="shots-users" formArrayName="playersShots">
                 <div class="shots-body" *ngFor="let player of players; index as i" [formGroupName]="i">
                     <p class="shot-username text">{{player.username}}</p>
-                    <div class="shot-result" *ngFor="let dartNumber of dartsOnMove; index as j" [formGroupName]="j">
+                    <div class="shot-result" *ngFor="let dartNumber of dartsInMove; index as j" [formGroupName]="j">
                         <input type="number" class="shot-input" formControlName="shot"/>
                         <div class="shot-factor-container">
                             <div class="shot-radio-container">
@@ -38,20 +39,19 @@
             </div>
         </form>
     </div>
-    <button class="button button-add" (click)="addPoints()">Add</button>
+    <button class="button button-add" (click)="saveShots()" [disabled]="isEndGame">Add</button>
 </div>
 <div class="game-board">
     <div class="game-usernames">
-        <p class="text game-username" *ngFor="let player of players">{{player.username}}<span class="lider">&#9786;</span></p>
+        <p class="text game-username" *ngFor="let player of players" [ngClass]="{'lider': player.points === closestPoint}">
+            {{player.username}}
+        </p>
     </div>
-    <div class="game-row" *ngFor="let move of prevPoints; index as i">
-        <p class="text game-move-number">{{prevPoints.length - i}}</p>
+    <div class="game-row" *ngFor="let move of prevShots; index as i">
+        <p class="text game-move-number" *ngIf="(prevShots.length - i - 1) !== 0">{{prevShots.length - i - 1}}</p>
         <div class="game-row-result">
             <p class="game-point" *ngFor="let point of move">{{point}}</p>
         </div>
-        <button class="text game-info">&#9432;</button>
-    </div>
-    <div class="game-zero-move">
-        <p class="game-point" *ngFor="let player of players">{{player.points}}</p>
+        <button class="text game-info" *ngIf="(prevShots.length - i - 1) !== 0" (click)="getMoveInfo(i)">&#9432;</button>
     </div>
 </div>
