@@ -9,7 +9,7 @@ import { PlayerService } from './player.service';
   providedIn: 'root'
 })
 export class GameService {
-  game?: Game;
+  game: Game = new Game501([]);
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor(private playerService: PlayerService) 
@@ -27,8 +27,12 @@ export class GameService {
 
   getPlayers(): Player[]{
     if(this.game)
-      return this.game?.getPlayers();
+      return this.game.getPlayers();
     
     return [];
+  }
+
+  getShotNumber(): number{
+    return this.game.dartInMove;
   }
 }

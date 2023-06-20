@@ -8,70 +8,36 @@
         New game
     </button>
 </div>
-<div class="shots-container">
-    <div class="shots-header">
-        <p class="shots-helper text">Dart 1</p>
-        <p class="shots-helper text">Dart 2</p>
-        <p class="shots-helper text">Dart 3</p>
-    </div>
-    <form [formGroup]="pointsForm">
-        <div class="shots-users" formArrayName="points">
-            <div class="shots-body" *ngFor="let player of players; index as i" [formGroupName]="i">
-                <p class="shot-username text">{{player.username}}</p>
-                <div class="shot-result">
-                    <input class="shot-input" formControlName="shot1"/>
-                    <div class="shot-factor-container">
-                        <div class="shot-radio-container">
-                            <input id="radio11{{i}}" type="radio" formControlName="factor1" [value]=1/>
-                            <label for="radio11{{i}}">1x</label>
-                        </div>
-                        <div class="shot-radio-container">
-                            <input id="radio12{{i}}" type="radio" formControlName="factor1" [value]=2/>
-                            <label for="radio12{{i}}">2x</label>
-                        </div>
-                        <div class="shot-radio-container">
-                            <input id="radio13{{i}}" type="radio" formControlName="factor1" [value]=3/>
-                            <label class="shot-last-label" for="radio13{{i}}">3x</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="shot-result">
-                    <input class="shot-input" formControlName="shot2"/>
-                    <div class="shot-factor-container">
-                        <div class="shot-radio-container">
-                            <input id="radio21{{i}}" type="radio" formControlName="factor2" [value]=1/>
-                            <label for="radio21{{i}}">1x</label>
-                        </div>
-                        <div class="shot-radio-container">
-                            <input id="radio22{{i}}" type="radio" formControlName="factor2" [value]=2/>
-                            <label for="radio22{{i}}">2x</label>
-                        </div>
-                        <div class="shot-radio-container">
-                            <input id="radio23{{i}}" type="radio" formControlName="factor2" [value]=3/>
-                            <label class="shot-last-label" for="radio23{{i}}">3x</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="shot-result">
-                    <input class="shot-input" formControlName="shot3"/>
-                    <div class="shot-factor-container">
-                        <div class="shot-radio-container">
-                            <input id="radio31{{i}}" type="radio" formControlName="factor3" [value]=1/>
-                            <label for="radio31{{i}}">1x</label>
-                        </div>
-                        <div class="shot-radio-container">
-                            <input id="radio32{{i}}" type="radio" formControlName="factor3" [value]=2/>
-                            <label for="radio32{{i}}">2x</label>
-                        </div>
-                        <div class="shot-radio-container">
-                            <input id="radio33{{i}}" type="radio" formControlName="factor3" [value]=3/>
-                            <label class="shot-last-label" for="radio33{{i}}">3x</label>
+<div class="shots-form">
+    <div class="shots-container">
+        <div class="shots-header">
+            <p class="shots-helper text" *ngFor="let dartNumber of dartsOnMove; index as i" >Dart {{i + 1}}</p>
+        </div>
+        <form class="shots-from-group" [formGroup]="pointsForm">
+            <div class="shots-users" formArrayName="playersShots">
+                <div class="shots-body" *ngFor="let player of players; index as i" [formGroupName]="i">
+                    <p class="shot-username text">{{player.username}}</p>
+                    <div class="shot-result" *ngFor="let dartNumber of dartsOnMove; index as j" [formGroupName]="j">
+                        <input type="number" class="shot-input" formControlName="shot"/>
+                        <div class="shot-factor-container">
+                            <div class="shot-radio-container">
+                                <input id="radio1{{i}}{{j}}" type="radio" formControlName="factor" [value]=1/>
+                                <label for="radio1{{i}}{{j}}">1x</label>
+                            </div>
+                            <div class="shot-radio-container">
+                                <input id="radio2{{i}}{{j}}" type="radio" formControlName="factor" [value]=2/>
+                                <label for="radio2{{i}}{{j}}">2x</label>
+                            </div>
+                            <div class="shot-radio-container">
+                                <input id="radio3{{i}}{{j}}" type="radio" formControlName="factor" [value]=3/>
+                                <label class="shot-last-label" for="radio3{{i}}{{j}}">3x</label>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
     <button class="button button-add" (click)="addPoints()">Add</button>
 </div>
 <div class="game-board">

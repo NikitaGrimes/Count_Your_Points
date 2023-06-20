@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { IDartShot } from 'src/app/models/dart-shot';
 import { GameTypes } from 'src/app/models/game-types';
 import { Player } from 'src/app/models/player';
+import { DartShot } from 'src/app/models/dart-result';
 import { GameService } from 'src/app/services/game.service';
 
 @Component({
@@ -14,40 +16,52 @@ export class GameComponent implements OnInit{
   players: Player[] = [];
   prevPoints: number[][] = [];
   pointsForm: FormGroup;
+  dartsOnMove: number[] = [];
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor(
     private gameService: GameService,
     private router: Router,
     private fb: FormBuilder){
     this.pointsForm = this.fb.group({
-      points: this.fb.array([])
+      playersShots: this.fb.array([])
     });
   }
 
   ngOnInit(): void {
     this.gameService.initGame(GameTypes.Game501);
     this.players = this.gameService.getPlayers();
-    this.players.forEach(_ => this.points.push(this.addPointForm()));
+    this.dartsOnMove = Array(this.gameService.getShotNumber()).fill(0);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    this.players.forEach(_ => this.playersShots.push(this.addPlayerShotsArray()));
+
   }
 
-  get points(): FormArray{
-    return this.pointsForm.get("points") as FormArray;
+  get playersShots(): FormArray{
+    return this.pointsForm.get("playersShots") as FormArray;
   }
 
-  addPointForm(): FormGroup{
-    return new FormGroup({
-      shot1: new FormControl(''),
-      factor1: new FormControl(1),
-      shot2: new FormControl(''),
-      factor2: new FormControl(1),
-      shot3: new FormControl(''),
-      factor3: new FormControl(1)
+  addPlayerShotsArray(): FormArray{
+    const formGroup: FormArray = this.fb.array([]);
+    for(let i = 0; i < this.gameService.getShotNumber(); i++)
+      formGroup.push(this.addShotGroup());
+    
+    return formGroup;
+  }
+
+  addShotGroup(): FormGroup{
+    return this.fb.group({
+      shot: this.fb.control(null, {nonNullable: true}),
+      factor: this.fb.control(1, {nonNullable: true}),
     });
   }
 
   addPoints(): void{
-    console.log(this.pointsForm.value);
+    this.playersShots.value
+    .forEach((playerShoot: IDartShot[]) => playerShoot
+      .forEach(shot => {
+        new DartShot(shot.shot, shot.factor);
+      }));
+    this.pointsForm.reset();
   }
 
   startNewGame(): void{

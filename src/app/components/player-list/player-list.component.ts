@@ -25,7 +25,6 @@ export class PlayerListComponent implements OnInit{
 
   ngOnInit(): void {
     this.players = this.playerService.getPlayers();
-    console.log(this.players);
   }
 
   removePlayer(id: number): void{
