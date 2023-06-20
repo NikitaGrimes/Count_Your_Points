@@ -3,9 +3,8 @@ import { DartShot } from "./dart-shot";
 
 export abstract class Game {
     abstract startPoint: number;
-    abstract finishPoint: number;
     abstract dartInMove: number;
-    protected winners: string[] = [];
+    protected winners: string[] | null = [];
     protected isFinished = false;
     lastShotsPoints: number[] = [];
     

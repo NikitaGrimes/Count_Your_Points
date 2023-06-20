@@ -4,7 +4,6 @@ import { DartShot } from "./dart-shot";
 
 export class Game501 extends Game{
     startPoint = 501;
-    finishPoint = 0;
     dartInMove = 3;
     movesCount = 0;
     limitedMoves = 20;
@@ -13,6 +12,7 @@ export class Game501 extends Game{
     constructor(players: Player[]){
         super(players);
         players.forEach(player => player.points = this.startPoint);
+        this.winners = [];
     }
 
     pushShotsResult(shots: DartShot[][]): string[] | null {
@@ -24,10 +24,10 @@ export class Game501 extends Game{
                 this.players[i].points -= shotResult;
                 this.lastShotsPoints[i] = shotResult;
             }
-            else if (this.players[i].points - shotResult === this.finishPoint && this.checkLastDoubleShot(shots[i])){
+            else if (this.players[i].points - shotResult === 0 && this.checkLastDoubleShot(shots[i])){
                 this.players[i].points -= shotResult;
                 this.lastShotsPoints[i] = shotResult;
-                this.winners.push(this.players[i].username);
+                this.winners?.push(this.players[i].username);
                 this.isFinished = true;
             }
         }
@@ -36,7 +36,7 @@ export class Game501 extends Game{
             this.isFinished = true;
             const minPoints = Math.min(...this.getPlayersPoints());
             if (this.getPlayersPoints().indexOf(minPoints) === this.getPlayersPoints().lastIndexOf(minPoints)){
-                this.winners.push(this.players[this.getPlayersPoints().indexOf(minPoints)].username);
+                this.winners?.push(this.players[this.getPlayersPoints().indexOf(minPoints)].username);
                 this.isFinished = true;
                 return this.winners;
             }

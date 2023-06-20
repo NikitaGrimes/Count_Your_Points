@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IDartShot } from 'src/app/models/idart-shot';
-import { GameTypes } from 'src/app/models/game-types';
 import { Player } from 'src/app/models/player';
 import { DartShot } from 'src/app/models/dart-shot';
 import { GameService } from 'src/app/services/game.service';
@@ -34,6 +33,7 @@ export class GameComponent implements OnInit{
   ngOnInit(): void {
     this.players = this.gameService.getPlayers();
     this.dartsInMove = Array(this.gameService.getDartInMove()).fill(0);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     this.players.forEach(_ => this.playersShots.push(this.addPlayerShotsArray()));
     this.closestPoint = this.gameService.getStartPoint();
     this.prevShots.unshift(new Array(this.players.length).fill(this.closestPoint));
