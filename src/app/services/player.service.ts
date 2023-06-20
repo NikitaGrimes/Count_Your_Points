@@ -5,14 +5,7 @@ import { Player } from '../models/player';
   providedIn: 'root'
 })
 export class PlayerService {
-  private players: Player[] = [
-    new Player("name", "email", 1, 0, true),
-    new Player("name1", "email1", 2, 0, true),
-    new Player("name2", "email2", 3),
-    new Player("name3", "email3", 4, 0, true),
-    new Player("name4", "email4", 5),
-    new Player("name5", "email5", 6)
-  ];
+  private players: Player[] = [];
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   constructor() {
