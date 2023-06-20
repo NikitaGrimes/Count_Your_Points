@@ -3,6 +3,7 @@ import { Player } from "./player";
 
 export class Game501 extends Game{
     startPoint = 501;
+    dartInMove = 3;
 
     constructor(players: Player[]){
         super(players);
