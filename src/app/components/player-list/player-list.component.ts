@@ -26,6 +26,7 @@ export class PlayerListComponent implements OnInit{
 
   ngOnInit(): void {
     this.players = this.playerService.getPlayers();
+    this.selectedPlayersNumber = this.players.filter(player => player.isSelected).length;
   }
 
   removePlayer(id: number): void{
