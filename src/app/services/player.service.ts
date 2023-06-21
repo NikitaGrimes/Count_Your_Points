@@ -26,16 +26,14 @@ export class PlayerService {
     this.players.push(player);
   }
 
-  removePlayer(id: number): Player[]{
+  removePlayer(id: number): void{
     const index = this.players.findIndex(player => player.id === id);
     this.players.splice(index, 1);
-    return this.players;
   }
 
-  selectPlayer(id: number):Player[]{
+  selectPlayer(id: number): void{
     const index = this.players.findIndex(player => player.id === id);
     this.players[index].isSelected = !this.players[index].isSelected;
-    return this.players;
   }
 
   searchPlayers(term: string): Player[]{
