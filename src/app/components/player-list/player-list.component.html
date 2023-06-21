@@ -27,7 +27,8 @@
             [formGroupName]="i">
             <input 
                 type="checkbox" 
-                formControlName="player"/>
+                formControlName="player"
+                (input)="selectPlayer(i)"/>
             <div class="list-name">
                 {{player.username}}
             </div>

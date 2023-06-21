@@ -54,6 +54,7 @@ export class PlayerListComponent implements OnInit{
   selectPlayer(id: number): void{
     this.playerService.selectPlayer(id);
     this.selectedPlayersNumber = this.playerService.getSelectedPlayers().length;
+    console.log(this.playerService.getSelectedPlayers());
   }
 
   addPlayer(): void{
