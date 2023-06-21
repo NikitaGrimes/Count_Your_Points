@@ -46,8 +46,28 @@
     <p class="text text-select">
         Choose game
     </p>
-    <div>
-        <button 
+    <div class="game-selector-container">
+        <div class="game-selector">
+            <input 
+                id="game501"
+                type="radio"
+                formControlName="gameType"
+                [value]=501/>
+            <label for="game501">
+                501
+            </label>
+        </div>
+        <div class="game-selector">
+            <input 
+                id="game301"
+                type="radio"
+                formControlName="gameType"
+                [value]=301/>
+            <label for="game301">
+                301
+            </label>
+        </div>
+        <!-- <button 
             class="button-game" 
             (click)="chooseGame(501)" 
             [ngClass]="{'selected-game': gameType === allGameTypes.Game501}">
@@ -58,11 +78,11 @@
             (click)="chooseGame(301)" 
             [ngClass]="{'selected-game': gameType === allGameTypes.Game301}">
             301
-        </button>
+        </button> -->
     </div>
     <button 
         class="button button-start" 
-        [disabled]="!(gameType) || selectedPlayersNumber === 0" 
+        [disabled]="selectedPlayersNumber === 0" 
         (click)="start()">
         Start
     </button>

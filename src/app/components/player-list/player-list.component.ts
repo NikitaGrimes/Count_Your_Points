@@ -14,12 +14,11 @@ import { PlayerService } from 'src/app/services/player.service';
 })
 export class PlayerListComponent implements OnInit{
   players: Player[] = [];
-  gameType?: GameTypes;
   allGameTypes = GameTypes;
   selectedPlayersNumber = 0;
   form = this.fb.group({
     players: this.fb.array([]),
-    gameType: this.fb.control('501')
+    gameType: this.fb.control(501)
   });
 
   constructor(
@@ -65,22 +64,9 @@ export class PlayerListComponent implements OnInit{
     this.players = this.playerService.searchPlayers((event.target as HTMLInputElement).value);
   }
 
-  chooseGame(game: number): void{
-    switch(game){
-      case 301:
-        this.gameType = GameTypes.Game301;
-        break;
-      case 501:
-        this.gameType = GameTypes.Game501;
-        break;
-      default:
-        this.gameType = undefined;
-    }
-  }
-
   start(): void{
-    if (this.gameType && this.selectedPlayersNumber !== 0){
-      this.gameService.initGame(this.gameType);
+    if (this.selectedPlayersNumber >= 2){
+      this.gameService.initGame(<GameTypes>this.form.controls.gameType.value);
       this.router.navigate(["game"]);
     }
   }
