@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { Location } from '@angular/common';
 import { PlayerService } from '../../services/player.service';
-import { FormGroup, FormControl, Validators} from '@angular/forms';
+import {  Validators, FormBuilder} from '@angular/forms';
 import { Player } from 'src/app/models/player';
 import { Router } from '@angular/router';
 
@@ -11,25 +10,25 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-player.component.scss']
 })
 export class AddPlayerComponent {
-  form = new FormGroup({
-    nickname: new FormControl('', [
+  form = this.fb.group({
+    nickname: ['', [
       Validators.required,
       Validators.maxLength(20),
-      Validators.pattern(/^(\s+\S+\s*)*(?!\s).*$/) //not only spaces
-    ]),
-    email: new FormControl('',
-    Validators.email)
-  });
+      Validators.pattern(/^(\s+\S+\s*)*(?!\s).*$/), //not only spaces
+    ]],
+    email: ['', Validators.email]
+  })
 
-  constructor(private location: Location,
+  constructor(
+    private fb: FormBuilder,
     private playerService: PlayerService,
     private router: Router){
-
+      
   }
 
   save(): void{
     if (this.form.valid){
-      this.playerService.addPlayer(new Player(<string>this.form.get("nickname")?.value, this.form.get("email")?.value));
+      this.playerService.addPlayer(new Player(<string>this.form.controls.nickname.value, this.form.controls.email.value));
       this.router.navigate(["/players"]);
     }
   }

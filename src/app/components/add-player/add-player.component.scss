@@ -34,14 +34,13 @@
     @extend %form-interaction;
     font-size: 26px;
     outline: none;
-    padding: 8px 8px 8px 8px;
+    padding: 8px;
     box-sizing: border-box;
 
-    &.ng-dirty{
-        &.ng-invalid{
-            padding: 8px 8px 8px 3px;
-            border-left: 5px solid #e44848;
-        }
+    &.ng-touched.ng-invalid{
+        padding-left: 3px;
+        border-left: 5px solid #e44848;
+    
     }
 }
 

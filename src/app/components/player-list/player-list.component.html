@@ -1,17 +1,33 @@
 <div class="copyright">
     <app-copyright></app-copyright>
 </div>
-<div class="container-selection">
-    <p class="text text-select">Select players</p>
+<form class="container-selection" [formGroup]="form">
+    <p class="text text-select">
+        Select players
+    </p>
     <div class="container-instrument">
         <div class="container-search">
-            <input #searchBox class="input-search" type="search" placeholder="Search" (input)="search(searchBox.value)"/>
+            <input 
+                class="input-search" 
+                type="search" 
+                placeholder="Search" 
+                (input)="search($event)"/>
             <span class="searcher"></span>
         </div>
-        <button class="button button-add" (click)="addPlayer()">New player</button>
+        <button 
+            class="button button-add" 
+            (click)="addPlayer()">
+            New player
+        </button>
     </div>
-    <div class="list-player">
-        <div class="list-row" *ngFor="let player of players" (click)="selectPlayer(player.id)" (keypress)="selectPlayer(player.id)" tabindex="1" [ngClass]="{'selected-player': player.isSelected}">
+    <div class="list-player" formArrayName="players">
+        <label 
+            class="list-row" 
+            *ngFor="let player of players; index as i"
+            [formGroupName]="i">
+            <input 
+                type="checkbox" 
+                formControlName="player"/>
             <div class="list-name">
                 {{player.username}}
             </div>
@@ -19,14 +35,34 @@
                 {{player.email}}
             </div>
             <div class="list-remove">
-                <button class="button-delete" (click)="removePlayer(player.id)"> </button>
+                <button 
+                    class="button-delete" 
+                    (click)="removePlayer(player.id)">
+                </button>
             </div>
-        </div>
+        </label>
     </div>
-    <p class="text text-select">Choose game</p>
+    <p class="text text-select">
+        Choose game
+    </p>
     <div>
-        <button class="button-game" (click)="chooseGame(501)" [ngClass]="{'selected-game': gameType === allGameTypes.Game501}">501</button>
-        <button class="button-game" (click)="chooseGame(301)" [ngClass]="{'selected-game': gameType === allGameTypes.Game301}">301</button>
+        <button 
+            class="button-game" 
+            (click)="chooseGame(501)" 
+            [ngClass]="{'selected-game': gameType === allGameTypes.Game501}">
+            501
+        </button>
+        <button 
+            class="button-game" 
+            (click)="chooseGame(301)" 
+            [ngClass]="{'selected-game': gameType === allGameTypes.Game301}">
+            301
+        </button>
     </div>
-    <button class="button button-start" [disabled]="!(gameType) || selectedPlayersNumber === 0" (click)="start()">Start</button>
-</div>
+    <button 
+        class="button button-start" 
+        [disabled]="!(gameType) || selectedPlayersNumber === 0" 
+        (click)="start()">
+        Start
+    </button>
+</form>

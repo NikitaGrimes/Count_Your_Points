@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { GameTypes } from 'src/app/models/game-types';
 import { Player } from 'src/app/models/player';
@@ -16,17 +17,33 @@ export class PlayerListComponent implements OnInit{
   gameType?: GameTypes;
   allGameTypes = GameTypes;
   selectedPlayersNumber = 0;
+  form = this.fb.group({
+    players: this.fb.array([]),
+    gameType: this.fb.control('501')
+  });
 
   constructor(
     private playerService: PlayerService,
     private router: Router,
-    private gameService: GameService){
+    private gameService: GameService,
+    private fb: FormBuilder){
     
   }
 
   ngOnInit(): void {
     this.players = this.playerService.getPlayers();
+    this.players.forEach(() => this.playersFormArray.push(this.addPlayerControl()));
     this.selectedPlayersNumber = this.playerService.getSelectedPlayers().length;
+  }
+
+  get playersFormArray(): FormArray{
+    return this.form.get("players") as FormArray;
+  }
+
+  private addPlayerControl(): FormGroup{
+    return this.fb.group({
+      player: this.fb.control("")
+    })
   }
 
   removePlayer(id: number): void{
@@ -43,8 +60,8 @@ export class PlayerListComponent implements OnInit{
     this.router.navigate(["add_player"]);
   }
 
-  search(term: string): void{
-    this.players = this.playerService.searchPlayers(term);
+  search(event: Event): void{
+    this.players = this.playerService.searchPlayers((event.target as HTMLInputElement).value);
   }
 
   chooseGame(game: number): void{
