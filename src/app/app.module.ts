@@ -7,6 +7,7 @@ import { PlayerListComponent } from './components/player-list/player-list.compon
 import { AddPlayerComponent } from './components/add-player/add-player.component';
 import { GameComponent } from './components/game/game.component';
 import { WinnerPipe } from './services/winner.pipe';
+import { WinnerPopupComponent } from './components/winner-popup/winner-popup.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { WinnerPipe } from './services/winner.pipe';
     AddPlayerComponent,
     PlayerListComponent,
     GameComponent,
-    WinnerPipe
+    WinnerPipe,
+    WinnerPopupComponent
   ],
   imports: [
     BrowserModule,

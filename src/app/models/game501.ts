@@ -12,7 +12,6 @@ export class Game501 extends Game{
     constructor(players: Player[]){
         super(players);
         players.forEach(player => player.points = this.startPoint);
-        this.winners = [];
     }
 
     pushShotsResult(shots: DartShot[][]): string[] | null {
@@ -27,7 +26,8 @@ export class Game501 extends Game{
             else if (this.players[i].points - shotResult === 0 && this.checkLastDoubleShot(shots[i])){
                 this.players[i].points -= shotResult;
                 this.lastShotsPoints[i] = shotResult;
-                this.winners?.push(this.players[i].username);
+                this.winners = this.winners ? this.winners : [];
+                this.winners.push(this.players[i].username);
                 this.isFinished = true;
             }
         }
@@ -36,20 +36,20 @@ export class Game501 extends Game{
             this.isFinished = true;
             const minPoints = Math.min(...this.getPlayersPoints());
             if (this.getPlayersPoints().indexOf(minPoints) === this.getPlayersPoints().lastIndexOf(minPoints)){
-                this.winners?.push(this.players[this.getPlayersPoints().indexOf(minPoints)].username);
+                this.winners = this.winners ? this.winners : [];
+                this.winners.push(this.players[this.getPlayersPoints().indexOf(minPoints)].username);
                 this.isFinished = true;
                 return this.winners;
             }
             this.isFinished = false;
         }
 
-        if (this.movesCount >= this.limitedMoves + this.additionalMoves)
+        if (this.movesCount >= this.limitedMoves + this.additionalMoves){
+            this.winners = [];
             this.isFinished = true;
+        }
 
-        if (this.isFinished)
-            return this.winners;
-
-        return null;
+        return this.winners;
     }
 
     getClosestPoint(): number {
@@ -65,5 +65,10 @@ export class Game501 extends Game{
         }
 
         return false;
+    }
+
+    override reset(): void {
+        super.reset();
+        this.movesCount = 0;
     }
 }

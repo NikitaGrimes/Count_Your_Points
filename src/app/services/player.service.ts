@@ -22,6 +22,7 @@ export class PlayerService {
 
   addPlayer(player: Player): void{
     player.id = Math.max(...this.players.map(user => user.id)) + 1;
+    player.id = player.id < 0 ? 0 : player.id;
     this.players.push(player);
   }
 

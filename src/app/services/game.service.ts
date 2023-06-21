@@ -61,4 +61,8 @@ export class GameService {
   getClosestPoint(): number{
     return this.game.getClosestPoint();
   }
+
+  resetGame(): void{
+    this.game.reset();
+  }
 }

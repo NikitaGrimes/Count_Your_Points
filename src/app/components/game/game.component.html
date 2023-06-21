@@ -4,22 +4,21 @@
         <p class="text">POINTS</p>
         <p class="text">&#169; SoftClub edition</p>
     </div>
-    <p class="text text-winner">{{winners | winner}}</p>
     <button class="button button-new-game" (click)="startNewGame()">
         New game
     </button>
 </div>
-<div class="shots-form">
+<div class="form-shots">
     <div class="shots-container">
         <div class="shots-header">
-            <p class="shots-helper text" *ngFor="let dartNumber of dartsInMove; index as i" >Dart {{i + 1}}</p>
+            <p class="shots-number text" *ngFor="let dartNumber of dartsInMove; index as i" >Dart {{i + 1}}</p>
         </div>
-        <form class="shots-from-group" [formGroup]="pointsForm">
-            <div class="shots-users" formArrayName="playersShots">
-                <div class="shots-body" *ngFor="let player of players; index as i" [formGroupName]="i">
+        <form class="form" [formGroup]="pointsForm">
+            <div class="form-array" formArrayName="playersShots">
+                <div class="form-container" *ngFor="let player of players; index as i" [formGroupName]="i">
                     <p class="shot-username text">{{player.username}}</p>
-                    <div class="shot-result" *ngFor="let dartNumber of dartsInMove; index as j" [formGroupName]="j">
-                        <input type="number" class="shot-input" formControlName="shot"/>
+                    <div class="form-group" *ngFor="let dartNumber of dartsInMove; index as j" [formGroupName]="j">
+                        <input type="number" class="form-input" formControlName="shot"/>
                         <div class="shot-factor-container">
                             <div class="shot-radio-container">
                                 <input id="radio1{{i}}{{j}}" type="radio" formControlName="factor" [value]=1/>
@@ -42,16 +41,17 @@
     <button class="button button-add" (click)="saveShots()" [disabled]="isEndGame">Add</button>
 </div>
 <div class="game-board">
-    <div class="game-usernames">
+    <div class="game-username-container">
         <p class="text game-username" *ngFor="let player of players" [ngClass]="{'lider': player.points === closestPoint}">
             {{player.username}}
         </p>
     </div>
-    <div class="game-row" *ngFor="let move of prevShots; index as i">
-        <p class="text game-move-number" *ngIf="(prevShots.length - i - 1) !== 0">{{prevShots.length - i - 1}}</p>
+    <div class="game-row" *ngFor="let move of points; index as i">
+        <p class="text game-move-number" *ngIf="(points.length - i - 1) !== 0">{{points.length - i - 1}}</p>
         <div class="game-row-result">
             <p class="game-point" *ngFor="let point of move">{{point}}</p>
         </div>
-        <button class="text game-info" *ngIf="(prevShots.length - i - 1) !== 0" (click)="getMoveInfo(i)">&#9432;</button>
+        <button class="text game-info" *ngIf="(points.length - i - 1) !== 0" (mousedown)="getMoveInfo(i)" (mouseup)="getMoveInfo(i)">&#9432;</button>
     </div>
 </div>
+<app-winner-popup *ngIf="winners !== null" [winners]="winners" (restart)="restart()"></app-winner-popup>

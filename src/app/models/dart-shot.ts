@@ -1,6 +1,4 @@
-import { IDartShot } from "./idart-shot";
-
-export class DartShot implements IDartShot{
+export class DartShot{
     constructor(
         public shot: number | null,
         public factor: number){
@@ -8,7 +6,7 @@ export class DartShot implements IDartShot{
     }
 
     getShotResult(): number{
-        return this.shot === null ? 0 : (this.shot * this.factor);
+        return this.shot === null ? 0 : (Math.floor(this.shot) * this.factor);
     }
 
     isDoubleFactor(): boolean{

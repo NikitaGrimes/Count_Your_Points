@@ -57,7 +57,7 @@ export class PlayerListComponent implements OnInit{
   }
 
   start(): void{
-    if (this.gameType){
+    if (this.gameType && this.playerService.getPlayers().filter(player => player.isSelected).length !== 0){
       this.gameService.initGame(this.gameType);
       this.router.navigate(["game"]);
     }

@@ -1,9 +1,9 @@
 .button{
-    border: none;
-    height: 35px;
-    font-size: 16px;
-    color: rgb(92, 92, 92);
     background-color: rgba(255, 215, 39, 0.9);
+    border: none;
+    color: rgb(92, 92, 92);
+    font-size: 16px;
+    height: 35px;
 
     &:hover:enabled{
         background-color: rgb(255, 215, 39);
@@ -11,8 +11,8 @@
     }
 
     &:active:enabled{
-        transform: scale(1);
         box-shadow: 0px 0px 8px #0007;
+        transform: scale(1);
     }
 }
 
@@ -24,8 +24,8 @@
 }
 
 .button-add{
-    width: 30%;
     margin-left: 35%;
+    width: 30%;
 }
 
 .copyright{
@@ -34,8 +34,8 @@
 
     :first-child{
         font-size: 21px;
-        height: 16px;
         margin-left: 2px;
+        height: 16px;
     }
 
     :nth-child(2){
@@ -55,12 +55,53 @@
     }
 }
 
+.form{
+    width: 100%;
+}
+
+.form-array{
+    display: flex;
+    justify-content: space-around;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.form-container{
+    max-width: 220px;
+}
+
+.form-group{
+    display: flex;
+    margin-top: 4px;
+}
+
+.form-input{
+    border-radius: 4px 0px 0px 4px;
+    border: none;
+    box-sizing: border-box;
+    outline: none;
+    font-size: 18px;
+    font-family: sans-serif;
+    padding: 0px;
+    padding-left: 6px;
+    margin: 0px;
+    height: 30px;
+    width: 65px;
+    -moz-appearance: textfield;
+}
+
+.form-shots{
+    border-bottom: 2px solid #fff3;
+    padding-top: 10px;
+    padding-bottom: 30px;
+}
+
 .game-board{
     justify-content: center;
     margin: 30px 60px 50px 80px;
 }
 
-.game-usernames{
+.game-username-container{
     padding-left: 60px;
     padding-right: 60px;
     display: flex;
@@ -69,17 +110,16 @@
 
 .game-username{
     text-align: center;
-    font-family: sans-serif;
     width: 150px;
 }
 
 .game-point{
-    margin: 0px;
-    padding: 0px;
-    margin-top: auto;
-    margin-bottom: auto;
     text-align: center;
     font-family: sans-serif;
+    padding: 0px;
+    margin: 0px;
+    margin-top: auto;
+    margin-bottom: auto;
     width: 150px;
 }
 
@@ -93,45 +133,35 @@
 }
 
 .game-move-number{
-    width: 5%;
-    text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    text-align: center;
     margin: 0px;
+    width: 5%;
 }
 
 .game-row-result{
-    width: 90%;
-    display: flex;
-    justify-content: space-around;
-    height: 45px;
     background-color: whitesmoke;
     border-bottom: 2px solid rgb(3,155,230);
+    display: flex;
+    justify-content: space-around;
     margin: 0px;
+    width: 90%;
+    height: 45px;
 }
 
 .game-info{
-    width: 5%;
-    font-size: 18px;
-    text-align: center;
     background-color: transparent;
     border: none;
+    font-size: 18px;
+    text-align: center;
     opacity: 0.6;
+    width: 5%;
 
     &:hover{
         opacity: 1;
-
-        &:active{
-            transform: scale(0.95);
-        }
     }
-}
-
-.shots-form{
-    border-bottom: 2px solid #fff3;
-    padding-top: 10px;
-    padding-bottom: 30px;
 }
 
 .shots-container{
@@ -139,81 +169,46 @@
     padding-bottom: 50px;
 }
 
-.shots-from-group{
-    width: 100%;
-}
-
 .shots-header{
-    min-width: fit-content;
     margin-left: 40px;
+    min-width: fit-content;
 }
 
-.shots-helper{
+.shots-number{
+    padding: 0px;
     margin-top: 16px;
     margin-bottom: 0px;
-    padding: 0px;
 
     &:first-child{
         margin-top: 40px;
     }
 }
 
-.shots-users{
-    display: flex;
-    justify-content: space-between;
-    padding-left: 30px;
-    padding-right: 30px;
-}
-
-.shots-body{
-    max-width: 220px;
-}
-
 .shot-username{
-    box-sizing: border-box;
     font-size: 16px;
+    box-sizing: border-box;
     margin: 0px;
     margin-top: 12px;
 }
 
-.shot-result{
-    margin-top: 4px;
-    display: flex;
-}
-
-.shot-input{
-    box-sizing: border-box;
-    height: 30px;
-    font-size: 18px;
-    font-family: sans-serif;
-    border: none;
-    outline: none;
-    width: 65px;
-    margin: 0px;
-    padding: 0px;
-    padding-left: 6px;
-    border-radius: 4px 0px 0px 4px;
-    -moz-appearance: textfield;
-}
-
 .shot-factor-container{
-    height: 30px;
-    width: 84px;
     background-color: rgb(58, 58, 58);
+    border-radius: 0px 10px 10px 0px;
     display: flex;
     justify-content: space-evenly;
-    border-radius: 0px 10px 10px 0px;
+    height: 30px;
+    width: 84px;
 }
 
 .shot-factor{
-    height: 24px;
-    width: 24px;
-    margin: 0px;
-    padding: 0px;
+    background-color: whitesmoke;
     border: none;
+    padding: 0px;
+    margin: 0px;
     margin-top: auto;
     margin-bottom: auto;
-    background-color: whitesmoke;
+    height: 24px;
+    width: 24px;
 
     &:last-child{
         border-radius: 0px 8px 8px 0px;
@@ -238,20 +233,20 @@
 }
 
 .shot-radio-container{
-    position: relative;
-    height: 24px;
-    width: 24px;
-    margin: 0px;
-    padding: 0px;
     border: none;
+    position: relative;
+    padding: 0px;
+    margin: 0px;
     margin-top: auto;
     margin-bottom: auto;
+    height: 24px;
+    width: 24px;
     
     label, input{
-        display: block;
-        position: absolute;
         border: none;
         outline: none;
+        display: block;
+        position: absolute;
     }
 
     input{
@@ -264,18 +259,17 @@
     }
 
     label{
+        align-items: center;
+        background-color: whitesmoke;
+        display: flex;
+        justify-content: center;
+        font-family: sans-serif;
+        font-size: 14px;
+        text-align: center;
         top: 0px;
         left: 0px;
         width: 24px;
         height: 24px;
-        background-color: whitesmoke;
-        text-align: center;
-        font-family: sans-serif;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 14px;
-        font-family: sans-serif;
 
         &:hover{
             opacity: 0.7;
@@ -289,23 +283,23 @@
 }
 
 .header{
+    border-bottom: 2px solid #fff3;
     display: flex;
     justify-content: space-between;
-    border-bottom: 2px solid #fff3;
 }
 
 .text{
-    font-family: sans-serif;
     color: whitesmoke;
+    font-family: sans-serif;
 }
 
 .text-winner{
-    font-size: 28px;
     display: flex;
-    padding: 0px;
     flex-direction: column;
     justify-content: center;
     text-align: center;
+    font-size: 28px;
+    padding: 0px;
     margin-left: 50px;
     margin-right: 50px;
 }
@@ -314,10 +308,10 @@
     position: relative;
 
     &::after{
-        position: absolute;
-        top: -4px;
         content: "\263A";
         color: green;
+        position: absolute;
         font-size: 20px;
+        top: -4px;
     }
 }
