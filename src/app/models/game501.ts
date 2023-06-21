@@ -28,25 +28,20 @@ export class Game501 extends Game{
                 this.lastShotsPoints[i] = shotResult;
                 this.winners = this.winners ? this.winners : [];
                 this.winners.push(this.players[i].username);
-                this.isFinished = true;
             }
         }
 
         if (this.movesCount >= this.limitedMoves){
-            this.isFinished = true;
             const minPoints = Math.min(...this.getPlayersPoints());
             if (this.getPlayersPoints().indexOf(minPoints) === this.getPlayersPoints().lastIndexOf(minPoints)){
                 this.winners = this.winners ? this.winners : [];
                 this.winners.push(this.players[this.getPlayersPoints().indexOf(minPoints)].username);
-                this.isFinished = true;
                 return this.winners;
             }
-            this.isFinished = false;
         }
 
         if (this.movesCount >= this.limitedMoves + this.additionalMoves){
             this.winners = [];
-            this.isFinished = true;
         }
 
         return this.winners;

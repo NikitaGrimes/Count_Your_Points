@@ -22,7 +22,6 @@ export class Game301 extends Game{
             } else if (this.players[i].points + shotResult === 301){
                 this.lastShotsPoints[i] = shotResult;
                 this.players[i].points += shotResult;
-                this.isFinished = true;
                 this.winners = [this.players[i].username];
             } else if (this.players[i].points + shotResult < 301){
                 this.lastShotsPoints[i] = shotResult;

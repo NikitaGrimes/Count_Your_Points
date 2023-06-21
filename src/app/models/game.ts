@@ -5,7 +5,6 @@ export abstract class Game {
     abstract startPoint: number;
     abstract dartInMove: number;
     protected winners: string[] | null = null;
-    protected isFinished = false;
     lastShotsPoints: number[] = [];
     
     constructor(public players: Player[]){
@@ -18,7 +17,6 @@ export abstract class Game {
     reset(): void{
         this.players.forEach(player => player.points = this.startPoint);
         this.winners = null;
-        this.isFinished = false;
     }
 
     getPlayersPoints(): number[]{

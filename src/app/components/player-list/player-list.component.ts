@@ -15,6 +15,7 @@ export class PlayerListComponent implements OnInit{
   players: Player[] = [];
   gameType?: GameTypes;
   allGameTypes = GameTypes;
+  selectedPlayersNumber = 0;
 
   constructor(
     private playerService: PlayerService,
@@ -33,6 +34,7 @@ export class PlayerListComponent implements OnInit{
 
   selectPlayer(id: number): void{
     this.playerService.selectPlayer(id);
+    this.selectedPlayersNumber = this.players.filter(player => player.isSelected).length;
   }
 
   addPlayer(): void{
@@ -57,7 +59,7 @@ export class PlayerListComponent implements OnInit{
   }
 
   start(): void{
-    if (this.gameType && this.playerService.getPlayers().filter(player => player.isSelected).length !== 0){
+    if (this.gameType && this.selectedPlayersNumber !== 0){
       this.gameService.initGame(this.gameType);
       this.router.navigate(["game"]);
     }

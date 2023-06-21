@@ -9,7 +9,7 @@ export class WinnerPipe implements PipeTransform {
     if (value === null)
       return "";
     
-    if (value[0] === "")
+    if (value.length === 0)
       return "It is Draw.";
 
     if (value.length === 1)
