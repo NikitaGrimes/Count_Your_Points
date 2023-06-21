@@ -9,7 +9,7 @@
         <div class="shots-header">
             <p class="shots-number text" *ngFor="let dartNumber of dartsInMove; index as i" >Dart {{i + 1}}</p>
         </div>
-        <form class="form" [formGroup]="pointsForm">
+        <form [formGroup]="pointsForm">
             <div class="form-array" formArrayName="playersShots">
                 <div class="form-container" *ngFor="let player of players; index as i" [formGroupName]="i">
                     <p class="shot-username text">{{player.username}}</p>

@@ -34,18 +34,13 @@
     height: 10px;
 }
 
-.form{
-    width: 100%;
-}
-
 .form-array{
     display: flex;
     justify-content: space-around;
-    padding-left: 30px;
-    padding-right: 30px;
 }
 
 .form-container{
+    margin-left: 50px;
     max-width: 220px;
 }
 
@@ -145,11 +140,11 @@
 
 .shots-container{
     display: flex;
+    justify-content: center;
     padding-bottom: 50px;
 }
 
 .shots-header{
-    margin-left: 40px;
     min-width: fit-content;
 }
 
