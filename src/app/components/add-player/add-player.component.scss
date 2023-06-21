@@ -63,25 +63,10 @@
     }
 }
 
-.header{
-    height: 15%;
-
-    :first-child{
-        font-size: 48px;
-        height: 32px;
-    }
-
-    :nth-child(2){
-        font-size: 89px;
-        font-weight: 700;
-        height: 90px;
-    }
-    
-    :last-child{
-        float: right;
-        font-size: 18px;
-        padding-right: 5px;
-    }
+.copyright{
+    font-size: 20px;
+    height: 19px;
+    margin-bottom: 100px;
 }
 
 .text{

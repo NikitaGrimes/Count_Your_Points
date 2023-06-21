@@ -8,6 +8,7 @@ import { AddPlayerComponent } from './components/add-player/add-player.component
 import { GameComponent } from './components/game/game.component';
 import { WinnerPipe } from './services/winner.pipe';
 import { WinnerPopupComponent } from './components/winner-popup/winner-popup.component';
+import { CopyrightComponent } from './components/copyright/copyright.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { WinnerPopupComponent } from './components/winner-popup/winner-popup.com
     PlayerListComponent,
     GameComponent,
     WinnerPipe,
-    WinnerPopupComponent
+    WinnerPopupComponent,
+    CopyrightComponent
   ],
   imports: [
     BrowserModule,

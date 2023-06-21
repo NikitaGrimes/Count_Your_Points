@@ -1,14 +1,12 @@
-<div class="header">
-    <p class="text">COUNT YOUR</p>
-    <p class="text">POINTS</p>
-    <p class="text">&#169; SoftClub edition</p>
+<div class="copyright">
+    <app-copyright></app-copyright>
 </div>
 <div class="container-selection">
     <p class="text text-select">Select players</p>
     <div class="container-instrument">
         <div class="container-search">
             <input #searchBox class="input-search" type="search" placeholder="Search" (input)="search(searchBox.value)"/>
-            <span class="lupa"></span>
+            <span class="searcher"></span>
         </div>
         <button class="button button-add" (click)="addPlayer()">New player</button>
     </div>

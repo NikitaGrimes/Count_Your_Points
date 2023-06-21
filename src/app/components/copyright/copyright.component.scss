@@ -1,0 +1,30 @@
+:host{
+    width: fit-content;
+
+    :first-child{
+        font-size: 210%;
+        margin-left: 2px;
+        height: 160%;
+    }
+
+    :nth-child(2){
+        font-size: 390%;
+        font-weight: 700;
+        height: 390%;
+    }
+    
+    :last-child{
+        float: right;
+        font-size: 90%;
+        padding-right: 3px;
+    }
+
+    p{
+        margin: 0;
+    }
+}
+
+.text{
+    color: whitesmoke;
+    font-family: sans-serif;
+}
