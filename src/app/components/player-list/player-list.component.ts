@@ -31,6 +31,7 @@ export class PlayerListComponent implements OnInit{
 
   removePlayer(id: number): void{
     this.playerService.removePlayer(id);
+    this.selectedPlayersNumber = this.players.filter(player => player.isSelected).length;
   }
 
   selectPlayer(id: number): void{
