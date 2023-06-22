@@ -32,6 +32,7 @@ export class PlayerService {
   public removePlayer(id: number): void{
     const index = this.players.findIndex(player => player.id === id);
     this.selectedIds.delete(id);
+    this.$select.next(this.selectedIds.size);
     this.players.splice(index, 1);
   }
 

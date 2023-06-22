@@ -25,7 +25,7 @@ export class GameComponent implements OnInit{
   public moveIndexInfo: number | null = null;
   public winners: string[] | null = null;
   public isEndGame = false;
-  public movesCount = 0;
+
   constructor(
     private playerService: PlayerService,
     private router: Router,
@@ -69,7 +69,6 @@ export class GameComponent implements OnInit{
   }
 
   public saveShots(): void{
-    this.movesCount++;
     const playersShots: DartShot[][] = this.playersShots.value
     .map((playerShoot: IDartShot[]) => playerShoot
       .map(shot => new DartShot(shot.shot, shot.factor)));

@@ -51,14 +51,18 @@
     background-color: rgba(255, 215, 39, 0.9);
     font-size: 20px;
 
-    &:hover:enabled{
-        background-color: rgb(255, 215, 39);
-        transform: scale(1.05);
-    }
+    &:enabled{
+        cursor: pointer;
 
-    &:active:enabled{
-        transform: scale(1);
-        box-shadow: 0px 0px 8px #0007;
+        &:hover{
+            background-color: rgb(255, 215, 39);
+            transform: scale(1.05);
+        }
+
+        &:active{
+            transform: scale(1);
+            box-shadow: 0px 0px 8px #0007;
+        }
     }
 }
 
