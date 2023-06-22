@@ -5,18 +5,15 @@
     font-family: sans-serif;
     opacity: 0.9;
 
-    &:enabled{
+    &:hover:enabled{
+        opacity: 1;
+        transform: scale(1.01);
         cursor: pointer;
+    }
 
-        &:hover{
-            opacity: 1;
-            transform: scale(1.01);
-        }
-
-        &:active{
-            box-shadow: 0px 0px 8px #0007;
-            transform: scale(1);
-        }
+    &:active:enabled{
+        box-shadow: 0px 0px 8px #0007;
+        transform: scale(1);
     }
 }
 
@@ -117,10 +114,6 @@
         outline: none;
         display: block;
         position: absolute;
-
-        &:hover{
-            cursor: pointer;
-        }
     }
 
     input{
@@ -152,6 +145,7 @@
 
         &:hover{
             opacity: 0.7;
+            cursor: pointer;
         }
     }
 }
