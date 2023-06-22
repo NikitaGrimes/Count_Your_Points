@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, numberAttribute, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IDartShot } from 'src/app/models/idart-shot';
@@ -15,11 +15,12 @@ import { GameCreator } from 'src/app/models/game-creator';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GameComponent implements OnInit{
-  players: Player[] = [];
+  players: Player[];
   dartsInMove: number;
+  moveInfo: number[];
   points: number[][] = [];
   isEndGame = false;
-  closestPoint = 0;
+  closestPoint: number;
   winners: string[] | null = null;
   pointsForm: FormGroup;
   private game: Game;
@@ -38,13 +39,14 @@ export class GameComponent implements OnInit{
       this.players = this.playerService.getSelectedPlayers();
       this.game = GameCreator.create(+gameType, this.players);
       this.dartsInMove = this.game.dartInMove;
+      this.closestPoint = this.game.startPoint;
+      this.points.unshift(new Array(this.players.length).fill(this.closestPoint));
+      this.moveInfo = new Array(this.players.length).fill(0);
+      this.dartsInMove = this.game.dartInMove;
   }
 
   ngOnInit(): void {
-    this.dartsInMove = this.game.dartInMove;
     this.players.forEach(() => this.playersShots.push(this.addPlayerShotsArray()));
-    this.closestPoint = this.game.startPoint;
-    this.points.unshift(new Array(this.players.length).fill(this.closestPoint));
   }
 
   get playersShots(): FormArray{
@@ -71,6 +73,8 @@ export class GameComponent implements OnInit{
     .map((playerShoot: IDartShot[]) => playerShoot
       .map(shot => new DartShot(shot.shot, shot.factor)));
     this.isEndGame = this.game.saveShots(playersShots);
+    if (this.isEndGame)
+      this.winners = this.game.getWinners();
     this.points.unshift(this.game.getCurrentPoints());
     this.closestPoint = this.game.getClosestPoint();
     this.pointsForm.reset();
@@ -82,6 +86,10 @@ export class GameComponent implements OnInit{
 
   getMoveInfo(moveIndex: number | null): void{
     this.moveIndexInfo = moveIndex;
+    if (moveIndex !== null)
+      for (let index = 0; index < this.moveInfo.length; index++){
+        this.moveInfo[index] = Math.abs(this.points[moveIndex][index] - this.points[moveIndex + 1][index]);
+      }
   }
 
   restart(): void{

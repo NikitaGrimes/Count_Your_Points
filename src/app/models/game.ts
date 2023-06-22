@@ -23,4 +23,8 @@ export abstract class Game {
     public getCurrentPoints(): number[]{
         return Array.from(this.players.values()).map(points => points[points.length - 1]);
     }
+
+    public getWinners(): string[] | null{
+        return this.winners;
+    }
 }

@@ -57,7 +57,8 @@
     <div class="game-username-container">
         <p 
             class="text game-username" 
-            *ngFor="let player of players; index as i">
+            *ngFor="let player of players; index as i"
+            [ngClass]="{'lider': points[0][i] === closestPoint}">
             {{player.username}}
         </p>
     </div>
@@ -78,6 +79,11 @@
                     *ngIf="moveIndexInfo !== i">
                     {{point}}
                 </p>
+                <p 
+                    class="game-point"
+                    *ngIf="moveIndexInfo === i">
+                    {{moveInfo[j]}}
+                </p>
             </div>
         </div>
         <button 
@@ -90,7 +96,7 @@
     </div>
 </div>
 <app-winner-popup 
-    *ngIf="winners !== null" 
+    *ngIf="isEndGame" 
     [winners]="winners" 
     (restart)="restart()">
 </app-winner-popup>
