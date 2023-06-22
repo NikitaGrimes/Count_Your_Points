@@ -53,7 +53,6 @@ export class PlayerListComponent implements OnInit{
   selectPlayer(id: number): void{
     this.playerService.selectPlayer(id);
     this.selectedPlayersNumber = this.playerService.getSelectedPlayers().length;
-    console.log(this.playerService.getSelectedPlayers());
   }
 
   addPlayer(): void{
@@ -66,8 +65,7 @@ export class PlayerListComponent implements OnInit{
 
   start(): void{
     if (this.selectedPlayersNumber >= 2){
-      this.gameService.initGame(<GameTypes>this.form.controls.gameType.value);
-      this.router.navigate(["game"]);
+      this.router.navigate(['/game', this.form.controls.gameType.value]);
     }
   }
 }

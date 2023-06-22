@@ -19,13 +19,13 @@ export class GameService {
 
   }
 
-  initGame(gameType: GameTypes): void{
+  initGame(gameType: number): void{
     const players = this.playerService.getSelectedPlayers();
     switch (gameType){
-      case (GameTypes.Game501):
+      case (501):
         this.game = new Game501(players);
         break;
-      case (GameTypes.Game301):
+      case (301):
         this.game = new Game301(players);
         break;
     }

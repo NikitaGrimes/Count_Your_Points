@@ -8,7 +8,7 @@ import { gameGuard } from '../services/game.guard';
 const routs: Routes = [
   {path: 'add_player', component: AddPlayerComponent},
   {path: 'players', component: PlayerListComponent},
-  {path: 'game', component: GameComponent, canActivate: [gameGuard]},
+  {path: 'game/:gameType', component: GameComponent, canActivate: [gameGuard]},
   {path: '', redirectTo: '/players', pathMatch: 'full'}
 ]
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IDartShot } from 'src/app/models/idart-shot';
 import { Player } from 'src/app/models/player';
 import { DartShot } from 'src/app/models/dart-shot';
@@ -24,13 +24,16 @@ export class GameComponent implements OnInit{
   constructor(
     private gameService: GameService,
     private router: Router,
-    private fb: FormBuilder){
+    private fb: FormBuilder,
+    private activateRoute: ActivatedRoute){
       this.pointsForm = this.fb.group({
         playersShots: this.fb.array([])
       });
   }
 
   ngOnInit(): void {
+      const gameType = this.activateRoute.snapshot.params['gameType'];
+      this.gameService.initGame(+gameType);
       this.players = this.gameService.getPlayers();
       this.dartsInMove = Array(this.gameService.getDartInMove()).fill(0);
       this.players.forEach(() => this.playersShots.push(this.addPlayerShotsArray()));
