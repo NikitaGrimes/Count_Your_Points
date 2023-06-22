@@ -31,7 +31,7 @@ export class PlayerListComponent implements OnInit{
 
   ngOnInit(): void {
     this.players = this.playerService.getPlayers();
-    this.players.forEach(() => this.playersFormArray.push(this.addPlayerControl()));
+    this.players.forEach(player => this.playersFormArray.push(this.addPlayerControl(player.isSelected)));
     this.selectedPlayersNumber = this.playerService.getSelectedPlayers().length;
   }
 
@@ -39,9 +39,9 @@ export class PlayerListComponent implements OnInit{
     return this.form.get("players") as FormArray;
   }
 
-  private addPlayerControl(): FormGroup{
+  private addPlayerControl(isSelected: boolean): FormGroup{
     return this.fb.group({
-      player: this.fb.control("")
+      player: this.fb.control(isSelected)
     })
   }
 
