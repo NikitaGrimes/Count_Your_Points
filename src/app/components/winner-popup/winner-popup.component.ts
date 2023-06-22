@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, Output} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'app-winner-popup',
   templateUrl: './winner-popup.component.html',
-  styleUrls: ['./winner-popup.component.scss']
+  styleUrls: ['./winner-popup.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WinnerPopupComponent {
   @Input() winners: string[] | null = null;
