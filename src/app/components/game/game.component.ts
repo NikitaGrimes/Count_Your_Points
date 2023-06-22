@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, numberAttribute, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IDartShot } from 'src/app/models/idart-shot';
@@ -15,17 +15,17 @@ import { GameCreator } from 'src/app/models/game-creator';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GameComponent implements OnInit{
-  players: Player[];
-  dartsInMove: number;
-  moveInfo: number[];
-  points: number[][] = [];
-  isEndGame = false;
-  closestPoint: number;
-  winners: string[] | null = null;
-  pointsForm: FormGroup;
-  private game: Game;
+  public game: Game;
+  public players: Player[];
+  public dartsInMove: number;
+  public moveInfo: number[];
+  public points: number[][] = [];
+  public closestPoint: number;
+  public pointsForm: FormGroup;
   public moveIndexInfo: number | null = null;
-
+  public winners: string[] | null = null;
+  public isEndGame = false;
+  public movesCount = 0;
   constructor(
     private playerService: PlayerService,
     private router: Router,
@@ -49,11 +49,11 @@ export class GameComponent implements OnInit{
     this.players.forEach(() => this.playersShots.push(this.addPlayerShotsArray()));
   }
 
-  get playersShots(): FormArray{
+  public get playersShots(): FormArray{
     return this.pointsForm.get("playersShots") as FormArray;
   }
 
-  addPlayerShotsArray(): FormArray{
+  public addPlayerShotsArray(): FormArray{
     const formArray: FormArray = this.fb.array([]);
     for(let i = 0; i < this.game.dartInMove; i++)
       formArray.push(this.addShotGroup());
@@ -61,14 +61,15 @@ export class GameComponent implements OnInit{
     return formArray;
   }
 
-  addShotGroup(): FormGroup{
+  public addShotGroup(): FormGroup{
     return this.fb.group({
       shot: this.fb.control(null, {nonNullable: true}),
       factor: this.fb.control(1, {nonNullable: true}),
     });
   }
 
-  saveShots(): void{
+  public saveShots(): void{
+    this.movesCount++;
     const playersShots: DartShot[][] = this.playersShots.value
     .map((playerShoot: IDartShot[]) => playerShoot
       .map(shot => new DartShot(shot.shot, shot.factor)));
@@ -80,11 +81,11 @@ export class GameComponent implements OnInit{
     this.pointsForm.reset();
   }
 
-  startNewGame(): void{
+  public startNewGame(): void{
     this.router.navigate(["players"]);
   }
 
-  getMoveInfo(moveIndex: number | null): void{
+  public getMoveInfo(moveIndex: number | null): void{
     this.moveIndexInfo = moveIndex;
     if (moveIndex !== null)
       for (let index = 0; index < this.moveInfo.length; index++){
@@ -92,12 +93,12 @@ export class GameComponent implements OnInit{
       }
   }
 
-  restart(): void{
+  public restart(): void{
     this.game.reset();
     this.winners = null;
     this.isEndGame = false;
     this.closestPoint = this.game.getClosestPoint();
-    this.points = [];
+    this.points.length = 0;
     this.points.push(this.game.getCurrentPoints());
   }
 }

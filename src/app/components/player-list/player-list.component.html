@@ -22,8 +22,12 @@
             New player
         </button>
     </div>
-    <div class="list-player" formArrayName="players">
-        <p class="list-row" *ngIf="players.length === 0">
+    <div 
+        class="list-player" 
+        formArrayName="players">
+        <p 
+            class="list-row" 
+            *ngIf="players.length === 0">
             There are no players. Please add a new player.
         </p>
         <label 
@@ -76,7 +80,7 @@
     </div>
     <button 
         class="button button-start" 
-        [disabled]="selectedPlayersNumber === 0" 
+        [disabled]="selectedPlayersNumber <= 1" 
         (click)="start()">
         Start
     </button>

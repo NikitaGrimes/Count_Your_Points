@@ -1,20 +1,39 @@
 <div class="header">
     <app-copyright class="copyright"></app-copyright>
-    <button class="button button-new-game" (click)="startNewGame()">
+    <button 
+        class="button button-new-game" 
+        (click)="startNewGame()">
         New game
     </button>
 </div>
 <div class="form-shots">
     <div class="shots-container">
         <div class="shots-header">
-            <p class="shots-number text" *appFor="dartsInMove; index as i" >Dart {{i + 1}}</p>
+            <p 
+                class="shots-number text" 
+                *appFor="dartsInMove; index as i">
+                Dart {{i + 1}}
+            </p>
         </div>
         <form [formGroup]="pointsForm">
-            <div class="form-array" formArrayName="playersShots">
-                <div class="form-container" *ngFor="let player of players; index as i" [formGroupName]="i">
-                    <p class="shot-username text">{{player.username}}</p>
-                    <div class="form-group" *appFor="dartsInMove; index as j" [formGroupName]="j">
-                        <input type="number" class="form-input" formControlName="shot"/>
+            <div 
+                class="form-array" 
+                formArrayName="playersShots">
+                <div 
+                    class="form-container" 
+                    *ngFor="let player of players; index as i" 
+                    [formGroupName]="i">
+                    <p class="shot-username text">
+                        {{player.username}}
+                    </p>
+                    <div 
+                        class="form-group" 
+                        *appFor="dartsInMove; index as j" 
+                        [formGroupName]="j">
+                        <input 
+                            type="number" 
+                            class="form-input" 
+                            formControlName="shot"/>
                         <div class="shot-factor-container">
                             <div class="shot-radio-container">
                                 <input 
@@ -22,7 +41,9 @@
                                     type="radio" 
                                     formControlName="factor" 
                                     [value]=1/>
-                                <label [attr.for]="'radio1' + i + j">1x</label>
+                                <label [attr.for]="'radio1' + i + j">
+                                    1x
+                                </label>
                             </div>
                             <div class="shot-radio-container">
                                 <input 
@@ -64,7 +85,7 @@
     </div>
     <div 
         class="game-row" 
-        *ngFor="let move of points; index as i">
+        *ngFor="let point of points; index as i">
         <p 
             class="text game-move-number" 
             *ngIf="(points.length - i - 1) !== 0">
@@ -73,11 +94,11 @@
         <div class="game-row-result">
             <div 
                 class="game-point" 
-                *ngFor="let point of move; index as j">
+                *ngFor="let points of game.players.values(); index as j">
                 <p 
                     class="game-point"
                     *ngIf="moveIndexInfo !== i">
-                    {{point}}
+                    {{points[points.length - i - 1]}}
                 </p>
                 <p 
                     class="game-point"

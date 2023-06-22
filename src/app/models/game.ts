@@ -5,8 +5,9 @@ export abstract class Game {
     abstract startPoint: number;
     abstract dartInMove: number;
 
-    protected players: Map<Player, number[]> = new Map();
+    public players: Map<Player, number[]> = new Map();
     protected winners: string[] | null = null;
+    public movesCount = 0;
     
     constructor(players: Player[]){
         players.forEach(player => this.players.set(player, [this.startPoint]));
@@ -16,7 +17,8 @@ export abstract class Game {
     abstract saveShots(shots: DartShot[][]): boolean;
 
     public reset(): void{
-        this.players.forEach((_, player) => this.players.set(player, [this.startPoint]))
+        this.players.forEach((_, player) => this.players.set(player, [this.startPoint]));
+        this.movesCount = 0;
         this.winners = null;
     }
 

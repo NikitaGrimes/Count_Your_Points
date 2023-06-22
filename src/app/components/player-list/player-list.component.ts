@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, OnDestroy } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { GameTypes } from 'src/app/models/game-types';
+import { Subscription } from 'rxjs';
 import { Player } from 'src/app/models/player';
 import { PlayerService } from 'src/app/services/player.service';
 
@@ -11,11 +11,11 @@ import { PlayerService } from 'src/app/services/player.service';
   styleUrls: ['./player-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PlayerListComponent implements OnInit{
-  players: Player[] = [];
-  allGameTypes = GameTypes;
-  selectedPlayersNumber = 0;
-  form = this.fb.group({
+export class PlayerListComponent implements OnInit, OnDestroy{
+  private subscription: Subscription;
+  public players: Player[] = [];
+  public selectedPlayersNumber = 0;
+  public form = this.fb.group({
     players: this.fb.array([]),
     gameType: this.fb.control(501)
   });
@@ -24,16 +24,19 @@ export class PlayerListComponent implements OnInit{
     private playerService: PlayerService,
     private router: Router,
     private fb: FormBuilder){
-    
+    this.subscription = playerService.$select.subscribe(count => this.selectedPlayersNumber = count);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   ngOnInit(): void {
     this.players = this.playerService.getPlayers();
     this.players.forEach(player => this.playersFormArray.push(this.addPlayerControl(this.playerService.checkSelectionPlayer(player.id))));
-    this.selectedPlayersNumber = this.playerService.getSelectedPlayers().length;
   }
 
-  get playersFormArray(): FormArray{
+  public get playersFormArray(): FormArray{
     return this.form.get("players") as FormArray;
   }
 
@@ -43,25 +46,23 @@ export class PlayerListComponent implements OnInit{
     })
   }
 
-  removePlayer(id: number): void{
+  public removePlayer(id: number): void{
     this.playerService.removePlayer(id);
-    this.selectedPlayersNumber = this.playerService.getSelectedPlayers().length;
   }
 
-  selectPlayer(id: number): void{
+  public selectPlayer(id: number): void{
     this.playerService.selectPlayer(id);
-    this.selectedPlayersNumber = this.playerService.getSelectedPlayers().length;
   }
 
-  addPlayer(): void{
+  public addPlayer(): void{
     this.router.navigate(["add_player"]);
   }
 
-  search(event: Event): void{
+  public search(event: Event): void{
     this.players = this.playerService.searchPlayers((event.target as HTMLInputElement).value);
   }
 
-  start(): void{
+  public start(): void{
     this.router.navigate(['/game', this.form.controls.gameType.value]);
   }
 }

@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddPlayerComponent {
-  form = this.fb.group({
+  public form = this.fb.group({
     nickname: ['', [
       Validators.required,
       Validators.maxLength(20),
@@ -27,7 +27,7 @@ export class AddPlayerComponent {
       
   }
 
-  save(): void{
+  public save(): void{
     if (this.form.valid){
       this.playerService.addPlayer(new Player(<string>this.form.controls.nickname.value, this.form.controls.email.value));
       this.router.navigate(["/players"]);

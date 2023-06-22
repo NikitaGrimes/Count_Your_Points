@@ -4,8 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'winner'
 })
 export class WinnerPipe implements PipeTransform {
-
-  transform(value: string[] | null): string {
+  public transform(value: string[] | null): string {
     if (value === null) return "";
     
     switch(value.length){

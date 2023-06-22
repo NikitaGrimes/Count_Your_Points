@@ -3,15 +3,16 @@ import { Game } from "./game";
 import { Player } from "./player";
 
 export class Game301 extends Game{
-    startPoint = 0;
-    dartInMove = 3;
+    public startPoint = 0;
+    public dartInMove = 3;
     
     constructor(players: Player[]){
         super(players);
         players.forEach(player => this.players.set(player, [this.startPoint]));
     }
 
-    saveShots(shots: DartShot[][]): boolean {
+    public saveShots(shots: DartShot[][]): boolean {
+        this.movesCount++;
         const shotsResult = shots.map(playerShot => playerShot.reduce((prev, curr) => prev + curr.getShotResult(), 0));
         let index = 0;
         this.players.forEach((playerPoints, player) => {
@@ -19,24 +20,23 @@ export class Game301 extends Game{
             if (shotsResult[index] !== 0){
                 if (lastPoints + shotsResult[index] <= 301){
                     lastPoints += shotsResult[index];
-                    playerPoints.push(lastPoints);
                 }
                 this.players.forEach((points, opponent) => {
                     if (points[points.length - 1] === lastPoints && opponent !== player)
-                        playerPoints[playerPoints.length - 1] = 0;
+                        lastPoints = 0;
                 });
 
-                if (playerPoints[playerPoints.length - 1] === 301)
+                if (lastPoints === 301)
                     this.winners = [player.username];
             }
-                
+            playerPoints.push(lastPoints);
             index++;
         });
 
         return this.winners !== null;
     }
 
-    getClosestPoint(): number {
+    public getClosestPoint(): number {
         let maxPoint = -Infinity;
         this.players.forEach(points => {
             if (points[points.length - 1] > maxPoint)
