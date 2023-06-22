@@ -1,7 +1,9 @@
 <div class="copyright">
     <app-copyright></app-copyright>
 </div>
-<form class="container-selection" [formGroup]="form">
+<form 
+    class="container-selection" 
+    [formGroup]="form">
     <p class="text text-select">
         Select players
     </p>
@@ -21,6 +23,9 @@
         </button>
     </div>
     <div class="list-player" formArrayName="players">
+        <p class="list-row" *ngIf="players.length === 0">
+            There are no players. Please add a new player.
+        </p>
         <label 
             class="list-row" 
             *ngFor="let player of players; index as i"
@@ -29,16 +34,17 @@
                 type="checkbox" 
                 formControlName="player"
                 (input)="selectPlayer(i)"/>
-            <div class="list-name">
+            <p class="list-name">
                 {{player.username}}
-            </div>
-            <div class="list-email">
+            </p>
+            <p class="list-email">
                 {{player.email}}
-            </div>
+            </p>
             <div class="list-remove">
                 <button 
                     class="button-delete" 
                     (click)="removePlayer(player.id)">
+                    &#10006;
                 </button>
             </div>
         </label>
@@ -67,18 +73,6 @@
                 301
             </label>
         </div>
-        <!-- <button 
-            class="button-game" 
-            (click)="chooseGame(501)" 
-            [ngClass]="{'selected-game': gameType === allGameTypes.Game501}">
-            501
-        </button>
-        <button 
-            class="button-game" 
-            (click)="chooseGame(301)" 
-            [ngClass]="{'selected-game': gameType === allGameTypes.Game301}">
-            301
-        </button> -->
     </div>
     <button 
         class="button button-start" 
