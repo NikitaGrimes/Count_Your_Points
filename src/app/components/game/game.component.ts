@@ -15,7 +15,7 @@ import { GameCreator } from 'src/app/models/game-creator';
 })
 export class GameComponent implements OnInit{
   players: Player[] = [];
-  dartsInMove: number[] = [];
+  dartsInMove = 0;
   points: number[][] = [];
   shotPoints: number[][] = [];
   isEndGame = false;
@@ -39,7 +39,7 @@ export class GameComponent implements OnInit{
   }
 
   ngOnInit(): void {
-      this.dartsInMove = Array(this.game.dartInMove).fill(0);
+      this.dartsInMove = this.game.dartInMove;
       this.players.forEach(() => this.playersShots.push(this.addPlayerShotsArray()));
       this.closestPoint = this.game.startPoint;
       this.points.unshift(new Array(this.players.length).fill(this.closestPoint));
@@ -51,11 +51,11 @@ export class GameComponent implements OnInit{
   }
 
   addPlayerShotsArray(): FormArray{
-      const formGroup: FormArray = this.fb.array([]);
+      const formArray: FormArray = this.fb.array([]);
       for(let i = 0; i < this.game.dartInMove; i++)
-        formGroup.push(this.addShotGroup());
+        formArray.push(this.addShotGroup());
       
-      return formGroup;
+      return formArray;
   }
 
   addShotGroup(): FormGroup{

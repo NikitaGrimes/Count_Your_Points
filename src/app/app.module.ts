@@ -9,6 +9,7 @@ import { GameComponent } from './components/game/game.component';
 import { WinnerPipe } from './services/winner.pipe';
 import { WinnerPopupComponent } from './components/winner-popup/winner-popup.component';
 import { CopyrightComponent } from './components/copyright/copyright.component';
+import { ForDirective } from './services/for.directive';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { CopyrightComponent } from './components/copyright/copyright.component';
     GameComponent,
     WinnerPipe,
     WinnerPopupComponent,
-    CopyrightComponent
+    CopyrightComponent,
+    ForDirective
   ],
   imports: [
     BrowserModule,

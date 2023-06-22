@@ -7,13 +7,13 @@
 <div class="form-shots">
     <div class="shots-container">
         <div class="shots-header">
-            <p class="shots-number text" *ngFor="let dartNumber of dartsInMove; index as i" >Dart {{i + 1}}</p>
+            <p class="shots-number text" *appFor="dartsInMove; index as i" >Dart {{i + 1}}</p>
         </div>
         <form [formGroup]="pointsForm">
             <div class="form-array" formArrayName="playersShots">
                 <div class="form-container" *ngFor="let player of players; index as i" [formGroupName]="i">
                     <p class="shot-username text">{{player.username}}</p>
-                    <div class="form-group" *ngFor="let dartNumber of dartsInMove; index as j" [formGroupName]="j">
+                    <div class="form-group" *appFor="dartsInMove; index as j" [formGroupName]="j">
                         <input type="number" class="form-input" formControlName="shot"/>
                         <div class="shot-factor-container">
                             <div class="shot-radio-container">
