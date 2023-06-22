@@ -45,6 +45,6 @@ export class PlayerService {
     if (!term.trim())
       return this.players;
 
-    return this.players.filter(player => player.username.includes(term));
+    return this.players.filter(player => player.username.toLowerCase().includes(term.toLowerCase()));
   }
 }
