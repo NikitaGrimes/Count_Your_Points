@@ -23,6 +23,7 @@ export class GameComponent implements OnInit{
   winners: string[] | null = null;
   pointsForm: FormGroup;
   private game: Game;
+  public moveIndexInfo: number | null = null;
 
   constructor(
     private playerService: PlayerService,
@@ -39,62 +40,62 @@ export class GameComponent implements OnInit{
   }
 
   ngOnInit(): void {
-      this.dartsInMove = this.game.dartInMove;
-      this.players.forEach(() => this.playersShots.push(this.addPlayerShotsArray()));
-      this.closestPoint = this.game.startPoint;
-      this.points.unshift(new Array(this.players.length).fill(this.closestPoint));
-      this.shotPoints.unshift(new Array(this.players.length).fill(0));
+    this.dartsInMove = this.game.dartInMove;
+    this.players.forEach(() => this.playersShots.push(this.addPlayerShotsArray()));
+    this.closestPoint = this.game.startPoint;
+    this.points.unshift(new Array(this.players.length).fill(this.closestPoint));
+    this.shotPoints.unshift(new Array(this.players.length).fill(0));
   }
 
   get playersShots(): FormArray{
-      return this.pointsForm.get("playersShots") as FormArray;
+    return this.pointsForm.get("playersShots") as FormArray;
   }
 
   addPlayerShotsArray(): FormArray{
-      const formArray: FormArray = this.fb.array([]);
-      for(let i = 0; i < this.game.dartInMove; i++)
-        formArray.push(this.addShotGroup());
+    const formArray: FormArray = this.fb.array([]);
+    for(let i = 0; i < this.game.dartInMove; i++)
+      formArray.push(this.addShotGroup());
       
-      return formArray;
+    return formArray;
   }
 
   addShotGroup(): FormGroup{
-      return this.fb.group({
-        shot: this.fb.control(null, {nonNullable: true}),
-        factor: this.fb.control(1, {nonNullable: true}),
-      });
+    return this.fb.group({
+      shot: this.fb.control(null, {nonNullable: true}),
+      factor: this.fb.control(1, {nonNullable: true}),
+    });
   }
 
   saveShots(): void{
-      const playersShots: DartShot[][] = this.playersShots.value
-      .map((playerShoot: IDartShot[]) => playerShoot
-        .map(shot => new DartShot(shot.shot, shot.factor)));
-      this.winners = this.game.pushShotsResult(playersShots);
-      this.points.unshift(this.game.getPlayersPoints());
-      this.shotPoints.unshift(this.game.lastShotsPoints);
-      this.closestPoint = this.game.getClosestPoint();
-      this.pointsForm.reset();
-      if (this.winners !== null){
-        this.isEndGame = true;
-      }
+    const playersShots: DartShot[][] = this.playersShots.value
+    .map((playerShoot: IDartShot[]) => playerShoot
+      .map(shot => new DartShot(shot.shot, shot.factor)));
+    this.winners = this.game.pushShotsResult(playersShots);
+    this.points.unshift(this.game.getPlayersPoints());
+    this.shotPoints.unshift(this.game.lastShotsPoints);
+    this.closestPoint = this.game.getClosestPoint();
+    this.pointsForm.reset();
+    if (this.winners !== null){
+      this.isEndGame = true;
+    }
   }
 
   startNewGame(): void{
-      this.router.navigate(["players"]);
+    this.router.navigate(["players"]);
   }
 
-  getMoveInfo(moveIndex: number): void{
-      [this.points[moveIndex], this.shotPoints[moveIndex]] = [this.shotPoints[moveIndex], this.points[moveIndex]];
+  getMoveInfo(moveIndex: number | null): void{
+    this.moveIndexInfo = moveIndex;
   }
 
   restart(): void{
-      this.game.reset();
-      this.winners = null;
-      this.isEndGame = false;
-      this.closestPoint = this.game.getClosestPoint();
-      this.shotPoints = [];
-      this.shotPoints.unshift(new Array(this.players.length).fill(0));
-      this.points = [];
-      this.points.push(this.game.getPlayersPoints());
+    this.game.reset();
+    this.winners = null;
+    this.isEndGame = false;
+    this.closestPoint = this.game.getClosestPoint();
+    this.shotPoints = [];
+    this.shotPoints.unshift(new Array(this.players.length).fill(0));
+    this.points = [];
+    this.points.push(this.game.getPlayersPoints());
   }
 }

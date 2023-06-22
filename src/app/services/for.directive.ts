@@ -5,7 +5,7 @@ import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 })
 export class ForDirective {
 
-  constructor(private templateRef: TemplateRef<any>, private viewContainer: ViewContainerRef) {
+  constructor(private templateRef: TemplateRef<unknown>, private viewContainer: ViewContainerRef) {
 
   }
 

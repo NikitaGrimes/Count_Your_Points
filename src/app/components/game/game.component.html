@@ -46,20 +46,57 @@
             </div>
         </form>
     </div>
-    <button class="button button-add" (click)="saveShots()" [disabled]="isEndGame">Add</button>
+    <button 
+        class="button button-add" 
+        (click)="saveShots()" 
+        [disabled]="isEndGame">
+        Add
+    </button>
 </div>
 <div class="game-board">
     <div class="game-username-container">
-        <p class="text game-username" *ngFor="let player of players" [ngClass]="{'lider': player.points === closestPoint}">
+        <p 
+            class="text game-username" 
+            *ngFor="let player of players" 
+            [ngClass]="{'lider': player.points === closestPoint}">
             {{player.username}}
         </p>
     </div>
-    <div class="game-row" *ngFor="let move of points; index as i">
-        <p class="text game-move-number" *ngIf="(points.length - i - 1) !== 0">{{points.length - i - 1}}</p>
+    <div 
+        class="game-row" 
+        *ngFor="let move of points; index as i">
+        <p 
+            class="text game-move-number" 
+            *ngIf="(points.length - i - 1) !== 0">
+            {{points.length - i - 1}}
+        </p>
         <div class="game-row-result">
-            <p class="game-point" *ngFor="let point of move">{{point}}</p>
+            <div 
+                class="game-point" 
+                *ngFor="let point of move; index as j">
+                <p 
+                    class="game-point"
+                    *ngIf="moveIndexInfo !== i">
+                    {{point}}
+                </p>
+                <p 
+                    class="game-point"
+                    *ngIf="moveIndexInfo === i">
+                    {{shotPoints[i][j]}}
+                </p>
+            </div>
         </div>
-        <button class="text game-info" *ngIf="(points.length - i - 1) !== 0" (mousedown)="getMoveInfo(i)" (mouseup)="getMoveInfo(i)">&#9432;</button>
+        <button 
+            class="text game-info" 
+            *ngIf="(points.length - i - 1) !== 0" 
+            (mousedown)="getMoveInfo(i)" 
+            (mouseup)="getMoveInfo(null)">
+            &#9432;
+        </button>
     </div>
 </div>
-<app-winner-popup *ngIf="winners !== null" [winners]="winners" (restart)="restart()"></app-winner-popup>
+<app-winner-popup 
+    *ngIf="winners !== null" 
+    [winners]="winners" 
+    (restart)="restart()">
+</app-winner-popup>
