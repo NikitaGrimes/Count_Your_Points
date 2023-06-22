@@ -76,14 +76,20 @@
 }
 
 .game-username-container{
-    padding-left: 60px;
-    padding-right: 60px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    height: 50px;
     display: flex;
     justify-content: space-around;
+    align-items: center;
 }
 
 .game-username{
     text-align: center;
+    font-size: 18px;
+    margin: 0px;
+    padding: 0px;
     width: 150px;
 }
 
@@ -282,10 +288,14 @@
     position: relative;
 
     &::after{
+        display: inline-block;
+        color: rgb(0, 255, 0);
         content: "\263A";
-        color: green;
+        font-size: 24px;
         position: absolute;
-        font-size: 20px;
-        top: -4px;
+        padding: 0px;
+        margin: 0px;
+        color: rgb(0, 255, 0);
+        height: 0px;
     }
 }
