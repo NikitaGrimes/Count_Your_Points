@@ -29,7 +29,7 @@ export class PlayerListComponent implements OnInit{
 
   ngOnInit(): void {
     this.players = this.playerService.getPlayers();
-    this.players.forEach(player => this.playersFormArray.push(this.addPlayerControl(player.isSelected)));
+    this.players.forEach(player => this.playersFormArray.push(this.addPlayerControl(this.playerService.checkSelectionPlayer(player.id))));
     this.selectedPlayersNumber = this.playerService.getSelectedPlayers().length;
   }
 
@@ -62,8 +62,6 @@ export class PlayerListComponent implements OnInit{
   }
 
   start(): void{
-    if (this.selectedPlayersNumber >= 2){
-      this.router.navigate(['/game', this.form.controls.gameType.value]);
-    }
+    this.router.navigate(['/game', this.form.controls.gameType.value]);
   }
 }

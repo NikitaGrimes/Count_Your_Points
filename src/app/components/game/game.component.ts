@@ -6,8 +6,6 @@ import { Player } from 'src/app/models/player';
 import { DartShot } from 'src/app/models/dart-shot';
 import { Game } from 'src/app/models/game';
 import { PlayerService } from 'src/app/services/player.service';
-import { Game501 } from 'src/app/models/game501';
-import { Game301 } from 'src/app/models/game301';
 import { GameCreator } from 'src/app/models/game-creator';
 
 @Component({

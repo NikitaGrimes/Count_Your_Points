@@ -11,18 +11,14 @@ export class PlayerService {
     new Player("zxc", "", 2),
     new Player("rty", "", 3),
   ];
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  constructor() {
-
-  }
+  public selectedIds: Set<number> = new Set();
 
   getPlayers(): Player[]{
     return this.players;
   }
   
   getSelectedPlayers(): Player[]{
-    return this.players.filter(player => player.isSelected);
+    return this.players.filter(player => this.selectedIds.has(player.id));
   }
 
   addPlayer(player: Player): void{
@@ -33,12 +29,16 @@ export class PlayerService {
 
   removePlayer(id: number): void{
     const index = this.players.findIndex(player => player.id === id);
+    this.selectedIds.delete(id);
     this.players.splice(index, 1);
   }
 
   selectPlayer(id: number): void{
-    const index = this.players.findIndex(player => player.id === id);
-    this.players[index].isSelected = !this.players[index].isSelected;
+    this.selectedIds.has(id) ? this.selectedIds.delete(id) : this.selectedIds.add(id);
+  }
+
+  checkSelectionPlayer(id: number): boolean{
+    return this.selectedIds.has(id);
   }
 
   searchPlayers(term: string): Player[]{

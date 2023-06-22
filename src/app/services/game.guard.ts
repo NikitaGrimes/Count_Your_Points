@@ -3,11 +3,8 @@ import { CanActivateFn, Router } from '@angular/router';
 import { PlayerService } from './player.service';
 
 export const gameGuard: CanActivateFn = (route, state) => {
-  const playersId: number[] = route.params["players"];
   const gameType: number = route.params["gameType"];
-  console.log(playersId);
-  const ids = inject(PlayerService).getPlayers().map(player => player.id);
-  if (/* playersId?.filter(id => ids.indexOf(id) !== -1).length >= 2 &&  */gameType) return true;
+  if (gameType && inject(PlayerService).getSelectedPlayers().length >= 2) return true;
   inject(Router).navigate(["players"]);
   return false;
 };
