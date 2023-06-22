@@ -8,31 +8,40 @@ export class Game301 extends Game{
     
     constructor(players: Player[]){
         super(players);
-        players.forEach(player => player.points = this.startPoint);
-        this.winners = null;
+        players.forEach(player => this.players.set(player, [this.startPoint]));
     }
 
-    pushShotsResult(shots: DartShot[][]): string[] | null {
-        this.lastShotsPoints = new Array(this.players.length).fill(0);
-        for (let i = 0; i < this.players.length; i++){
-            const shotResult = shots[i].reduce((prevValue, shot) => shot.getShotResult() + prevValue, 0);
-            if (shotResult !== 0 && this.players.map(player => player.points).includes(this.players[i].points + shotResult)){
-                this.lastShotsPoints[i] = shotResult;
-                this.players[i].points = 0;
-            } else if (this.players[i].points + shotResult === 301){
-                this.lastShotsPoints[i] = shotResult;
-                this.players[i].points += shotResult;
-                this.winners = [this.players[i].username];
-            } else if (this.players[i].points + shotResult < 301){
-                this.lastShotsPoints[i] = shotResult;
-                this.players[i].points += shotResult;
-            }
-        }
+    saveShots(shots: DartShot[][]): boolean {
+        const shotsResult = shots.map(playerShot => playerShot.reduce((prev, curr) => prev + curr.getShotResult(), 0));
+        let index = 0;
+        this.players.forEach((playerPoints, player) => {
+            let lastPoints = playerPoints[playerPoints.length - 1];
+            if (shotsResult[index] !== 0){
+                if (lastPoints + shotsResult[index] <= 301){
+                    lastPoints += shotsResult[index];
+                    playerPoints.push(lastPoints);
+                }
+                this.players.forEach((points, opponent) => {
+                    if (points[points.length - 1] === lastPoints && opponent !== player)
+                        playerPoints[playerPoints.length - 1] = 0;
+                });
 
-        return this.winners;
+                if (playerPoints[playerPoints.length - 1] === 301)
+                    this.winners = [player.username];
+            }
+                
+            index++;
+        });
+
+        return this.winners !== null;
     }
 
     getClosestPoint(): number {
-        return Math.max(...this.players.map(player => player.points));
+        let maxPoint = -Infinity;
+        this.players.forEach(points => {
+            if (points[points.length - 1] > maxPoint)
+                maxPoint = points[points.length - 1];
+        })
+        return maxPoint;
     }
 }

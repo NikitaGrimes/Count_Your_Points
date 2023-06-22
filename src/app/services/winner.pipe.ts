@@ -6,15 +6,15 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class WinnerPipe implements PipeTransform {
 
   transform(value: string[] | null): string {
-    if (value === null)
-      return "";
+    if (value === null) return "";
     
-    if (value.length === 0)
-      return "It is Draw.";
-
-    if (value.length === 1)
-      return value[0] + " is a WINNER!";
-
-    return value.join(", ") + " are the Winners!";
+    switch(value.length){
+      case 0:
+        return "It is Draw.";
+      case 1:
+        return value[0] + " is a WINNER!";
+      default:
+        return value.join(", ") + " are the Winners!";
+    }
   }
 }

@@ -4,22 +4,23 @@ import { DartShot } from "./dart-shot";
 export abstract class Game {
     abstract startPoint: number;
     abstract dartInMove: number;
-    protected winners: string[] | null = null;
-    lastShotsPoints: number[] = [];
-    
-    constructor(public players: Player[]){
 
+    protected players: Map<Player, number[]> = new Map();
+    protected winners: string[] | null = null;
+    
+    constructor(players: Player[]){
+        players.forEach(player => this.players.set(player, [this.startPoint]));
     }
 
-    abstract pushShotsResult(shots: DartShot[][]): string[] | null ;
     abstract getClosestPoint(): number;
+    abstract saveShots(shots: DartShot[][]): boolean;
 
-    reset(): void{
-        this.players.forEach(player => player.points = this.startPoint);
+    public reset(): void{
+        this.players.forEach((_, player) => this.players.set(player, [this.startPoint]))
         this.winners = null;
     }
 
-    getPlayersPoints(): number[]{
-        return this.players.map(player => player.points);
+    public getCurrentPoints(): number[]{
+        return Array.from(this.players.values()).map(points => points[points.length - 1]);
     }
 }

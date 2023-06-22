@@ -16,9 +16,8 @@ import { GameCreator } from 'src/app/models/game-creator';
 })
 export class GameComponent implements OnInit{
   players: Player[] = [];
-  dartsInMove = 0;
+  dartsInMove: number;
   points: number[][] = [];
-  shotPoints: number[][] = [];
   isEndGame = false;
   closestPoint = 0;
   winners: string[] | null = null;
@@ -38,6 +37,7 @@ export class GameComponent implements OnInit{
       const gameType = this.activateRoute.snapshot.params['gameType'];
       this.players = this.playerService.getSelectedPlayers();
       this.game = GameCreator.create(+gameType, this.players);
+      this.dartsInMove = this.game.dartInMove;
   }
 
   ngOnInit(): void {
@@ -45,7 +45,6 @@ export class GameComponent implements OnInit{
     this.players.forEach(() => this.playersShots.push(this.addPlayerShotsArray()));
     this.closestPoint = this.game.startPoint;
     this.points.unshift(new Array(this.players.length).fill(this.closestPoint));
-    this.shotPoints.unshift(new Array(this.players.length).fill(0));
   }
 
   get playersShots(): FormArray{
@@ -71,14 +70,10 @@ export class GameComponent implements OnInit{
     const playersShots: DartShot[][] = this.playersShots.value
     .map((playerShoot: IDartShot[]) => playerShoot
       .map(shot => new DartShot(shot.shot, shot.factor)));
-    this.winners = this.game.pushShotsResult(playersShots);
-    this.points.unshift(this.game.getPlayersPoints());
-    this.shotPoints.unshift(this.game.lastShotsPoints);
+    this.isEndGame = this.game.saveShots(playersShots);
+    this.points.unshift(this.game.getCurrentPoints());
     this.closestPoint = this.game.getClosestPoint();
     this.pointsForm.reset();
-    if (this.winners !== null){
-      this.isEndGame = true;
-    }
   }
 
   startNewGame(): void{
@@ -94,9 +89,7 @@ export class GameComponent implements OnInit{
     this.winners = null;
     this.isEndGame = false;
     this.closestPoint = this.game.getClosestPoint();
-    this.shotPoints = [];
-    this.shotPoints.unshift(new Array(this.players.length).fill(0));
     this.points = [];
-    this.points.push(this.game.getPlayersPoints());
+    this.points.push(this.game.getCurrentPoints());
   }
 }

@@ -57,8 +57,7 @@
     <div class="game-username-container">
         <p 
             class="text game-username" 
-            *ngFor="let player of players" 
-            [ngClass]="{'lider': player.points === closestPoint}">
+            *ngFor="let player of players; index as i">
             {{player.username}}
         </p>
     </div>
@@ -78,11 +77,6 @@
                     class="game-point"
                     *ngIf="moveIndexInfo !== i">
                     {{point}}
-                </p>
-                <p 
-                    class="game-point"
-                    *ngIf="moveIndexInfo === i">
-                    {{shotPoints[i][j]}}
                 </p>
             </div>
         </div>
