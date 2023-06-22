@@ -3,7 +3,6 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { GameTypes } from 'src/app/models/game-types';
 import { Player } from 'src/app/models/player';
-import { GameService } from 'src/app/services/game.service';
 import { PlayerService } from 'src/app/services/player.service';
 
 @Component({
@@ -24,7 +23,6 @@ export class PlayerListComponent implements OnInit{
   constructor(
     private playerService: PlayerService,
     private router: Router,
-    private gameService: GameService,
     private fb: FormBuilder){
     
   }
