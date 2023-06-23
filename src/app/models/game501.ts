@@ -60,13 +60,7 @@ export class Game501 extends Game{
     }
 
     public getClosestPoint(): number {
-        let minPoint = +Infinity;
-        this.points[this.movesCount].forEach(point => {
-            if (point < minPoint)
-                minPoint = point;
-        });
-
-        return minPoint;
+        return Math.min(...this.points.flat(2));
     }
 
     private checkLastDoubleShot(dartShots: DartShot[]): boolean{

@@ -31,12 +31,7 @@ export class Game301 extends Game{
     }
 
     public getClosestPoint(): number {
-        let maxPoint = -Infinity;
-        this.points[this.movesCount].forEach(point => {
-            if (point > maxPoint)
-                maxPoint = point;
-        })
-        return maxPoint;
+        return Math.max(...this.points.flat(2));
     }
 
     public checkResult(): boolean{
