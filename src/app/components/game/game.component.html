@@ -11,7 +11,7 @@
         <div class="shots-header">
             <p 
                 class="shots-number text" 
-                *appFor="dartsInMove; index as i">
+                *appFor="game.dartInMove; index as i">
                 Dart {{i + 1}}
             </p>
         </div>
@@ -21,14 +21,14 @@
                 formArrayName="playersShots">
                 <div 
                     class="form-container" 
-                    *ngFor="let player of players; index as i" 
+                    *ngFor="let player of game.players; index as i" 
                     [formGroupName]="i">
                     <p class="shot-username text">
                         {{player.username}}
                     </p>
                     <div 
                         class="form-group" 
-                        *appFor="dartsInMove; index as j" 
+                        *appFor="game.dartInMove; index as j" 
                         [formGroupName]="j">
                         <input 
                             type="number" 
@@ -78,27 +78,27 @@
     <div class="game-username-container">
         <p 
             class="text game-username" 
-            *ngFor="let player of players; index as i"
-            [ngClass]="{'lider': points[0][i] === closestPoint}">
+            *ngFor="let player of game.players; index as i"
+            [ngClass]="{'lider': game.points[0][i] === closestPoint}">
             {{player.username}}
         </p>
     </div>
     <div 
         class="game-row" 
-        *ngFor="let point of points; index as i">
+        *ngFor="let points of game.points; index as i">
         <p 
             class="text game-move-number" 
-            *ngIf="(points.length - i - 1) !== 0">
-            {{points.length - i - 1}}
+            *ngIf="(game.points.length - i - 1) !== 0">
+            {{game.points.length - i - 1}}
         </p>
         <div class="game-row-result">
             <div 
                 class="game-point" 
-                *ngFor="let points of game.players.values(); index as j">
+                *ngFor="let point of points; index as j">
                 <p 
                     class="game-point"
                     *ngIf="moveIndexInfo !== i">
-                    {{points[points.length - i - 1]}}
+                    {{point}}
                 </p>
                 <p 
                     class="game-point"
@@ -109,7 +109,7 @@
         </div>
         <button 
             class="text game-info" 
-            *ngIf="(points.length - i - 1) !== 0" 
+            *ngIf="(game.points.length - i - 1) !== 0" 
             (mousedown)="getMoveInfo(i)" 
             (mouseup)="getMoveInfo(null)">
             &#9432;

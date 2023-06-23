@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IDartShot } from 'src/app/models/idart-shot';
-import { Player } from 'src/app/models/player';
 import { DartShot } from 'src/app/models/dart-shot';
 import { Game } from 'src/app/models/game';
 import { PlayerService } from 'src/app/services/player.service';
@@ -16,10 +15,7 @@ import { GameCreator } from 'src/app/models/game-creator';
 })
 export class GameComponent implements OnInit{
   public game: Game;
-  public players: Player[];
-  public dartsInMove: number;
   public moveInfo: number[];
-  public points: number[][] = [];
   public closestPoint: number;
   public pointsForm: FormGroup;
   public moveIndexInfo: number | null = null;
@@ -36,17 +32,13 @@ export class GameComponent implements OnInit{
       });
       
       const gameType = this.activateRoute.snapshot.params['gameType'];
-      this.players = this.playerService.getSelectedPlayers();
-      this.game = GameCreator.create(+gameType, this.players);
-      this.dartsInMove = this.game.dartInMove;
+      this.game = GameCreator.create(+gameType, this.playerService.getSelectedPlayers());
       this.closestPoint = this.game.startPoint;
-      this.points.unshift(new Array(this.players.length).fill(this.closestPoint));
-      this.moveInfo = new Array(this.players.length).fill(0);
-      this.dartsInMove = this.game.dartInMove;
+      this.moveInfo = new Array(this.game.players.length).fill(0);
   }
 
   ngOnInit(): void {
-    this.players.forEach(() => this.playersShots.push(this.addPlayerShotsArray()));
+    this.game.players.forEach(() => this.playersShots.push(this.addPlayerShotsArray()));
   }
 
   public get playersShots(): FormArray{
@@ -75,7 +67,7 @@ export class GameComponent implements OnInit{
     this.isEndGame = this.game.saveShots(playersShots);
     if (this.isEndGame)
       this.winners = this.game.getWinners();
-    this.points.unshift(this.game.getCurrentPoints());
+
     this.closestPoint = this.game.getClosestPoint();
     this.pointsForm.reset();
   }
@@ -88,7 +80,7 @@ export class GameComponent implements OnInit{
     this.moveIndexInfo = moveIndex;
     if (moveIndex !== null)
       for (let index = 0; index < this.moveInfo.length; index++){
-        this.moveInfo[index] = Math.abs(this.points[moveIndex][index] - this.points[moveIndex + 1][index]);
+        this.moveInfo[index] = Math.abs(this.game.points[moveIndex][index] - this.game.points[moveIndex + 1][index]);
       }
   }
 
@@ -97,7 +89,5 @@ export class GameComponent implements OnInit{
     this.winners = null;
     this.isEndGame = false;
     this.closestPoint = this.game.getClosestPoint();
-    this.points.length = 0;
-    this.points.push(this.game.getCurrentPoints());
   }
 }

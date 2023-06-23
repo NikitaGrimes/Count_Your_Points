@@ -8,39 +8,38 @@ export class Game301 extends Game{
     
     constructor(players: Player[]){
         super(players);
-        players.forEach(player => this.players.set(player, [this.startPoint]));
+        this.points[0].fill(this.startPoint);
     }
 
     public saveShots(shots: DartShot[][]): boolean {
         this.movesCount++;
-        const shotsResult = shots.map(playerShot => playerShot.reduce((prev, curr) => prev + curr.getShotResult(), 0));
-        let index = 0;
-        this.players.forEach((playerPoints, player) => {
-            let lastPoints = playerPoints[playerPoints.length - 1];
-            if (shotsResult[index] !== 0){
-                if (lastPoints + shotsResult[index] <= 301){
-                    lastPoints += shotsResult[index];
+        const shotResults = shots.map(playerShot => playerShot.reduce((prev, curr) => prev + curr.getShotResult(), 0));
+        this.points.unshift([...this.points[0]]);
+        for (let i = 0; i < shotResults.length; i++){
+            let lastPoint = this.points[0][i];
+            if (shotResults[i] !== 0){
+                if (lastPoint + shotResults[i] <= 301){
+                    lastPoint += shotResults[i];
+                    this.players.forEach((_, index) => {
+                        if (this.points[0][index] === lastPoint)
+                            lastPoint = 0;
+                    });
                 }
-                this.players.forEach((points, opponent) => {
-                    if (points[points.length - 1] === lastPoints && opponent !== player)
-                        lastPoints = 0;
-                });
-
-                if (lastPoints === 301)
-                    this.winners = [player.username];
+                
+                if (lastPoint === 301)
+                    this.winners = [this.players[i].username];
             }
-            playerPoints.push(lastPoints);
-            index++;
-        });
+            this.points[0][i] = lastPoint;
+        }
 
         return this.winners !== null;
     }
 
     public getClosestPoint(): number {
         let maxPoint = -Infinity;
-        this.players.forEach(points => {
-            if (points[points.length - 1] > maxPoint)
-                maxPoint = points[points.length - 1];
+        this.points[0].forEach(point => {
+            if (point > maxPoint)
+                maxPoint = point;
         })
         return maxPoint;
     }

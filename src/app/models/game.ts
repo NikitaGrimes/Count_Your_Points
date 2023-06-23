@@ -5,25 +5,27 @@ export abstract class Game {
     abstract startPoint: number;
     abstract dartInMove: number;
 
-    public players: Map<Player, number[]> = new Map();
+    public players: Player[]
+    public points: number[][] = [];
     protected winners: string[] | null = null;
     public movesCount = 0;
     
     constructor(players: Player[]){
-        players.forEach(player => this.players.set(player, [this.startPoint]));
+        this.players = players;
+        this.points.push(new Array(players.length));
     }
 
     abstract getClosestPoint(): number;
     abstract saveShots(shots: DartShot[][]): boolean;
 
     public reset(): void{
-        this.players.forEach((_, player) => this.players.set(player, [this.startPoint]));
+        this.points = [Array(this.players.length).fill(this.startPoint)];
         this.movesCount = 0;
         this.winners = null;
     }
 
     public getCurrentPoints(): number[]{
-        return Array.from(this.players.values()).map(points => points[points.length - 1]);
+        return this.points[0];
     }
 
     public getWinners(): string[] | null{
