@@ -7,10 +7,10 @@ import { Player } from '../models/player';
 })
 export class PlayerService {
   private players: Player[] = [
-    new Player("qwe", "", 0),
-    new Player("asd", "", 1),
-    new Player("zxc", "", 2),
-    new Player("rty", "", 3),
+    new Player("Dr. Strange", "strange@gmail.com", 0),
+    new Player("Stark", "stark@mail.ru", 1),
+    new Player("Boby", "bob@gmail.com", 2),
+    new Player("Google", "google@gmail.com", 3),
   ];
   public selectedIds: Set<number> = new Set();
   public $select = new BehaviorSubject<number>(0);
@@ -21,6 +21,10 @@ export class PlayerService {
   
   public getSelectedPlayers(): Player[]{
     return this.players.filter(player => this.selectedIds.has(player.id));
+  }
+  
+  public getSelectedPlayersCount(): number{
+    return this.selectedIds.size;
   }
 
   public addPlayer(player: Player): void{

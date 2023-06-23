@@ -4,7 +4,7 @@ import { PlayerService } from './player.service';
 
 export const gameGuard: CanActivateFn = (route) => {
   const gameType: number = route.params["gameType"];
-  if (gameType && inject(PlayerService).getSelectedPlayers().length >= 2) return true;
+  if (gameType && inject(PlayerService).getSelectedPlayersCount() >= 2) return true;
   
   inject(Router).navigate(["players"]);
   return false;
