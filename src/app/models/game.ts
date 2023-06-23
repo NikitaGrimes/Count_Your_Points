@@ -16,7 +16,8 @@ export abstract class Game {
     }
 
     abstract getClosestPoint(): number;
-    abstract saveShots(shots: DartShot[][]): boolean;
+    abstract saveShots(shots: DartShot[][]): void;
+    abstract checkResult(): boolean;
 
     public reset(): void{
         this.points = [Array(this.players.length).fill(this.startPoint)];

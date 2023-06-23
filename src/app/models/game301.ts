@@ -11,7 +11,7 @@ export class Game301 extends Game{
         this.points[0].fill(this.startPoint);
     }
 
-    public saveShots(shots: DartShot[][]): boolean {
+    public saveShots(shots: DartShot[][]): void {
         this.movesCount++;
         const shotResults = shots.map(playerShot => playerShot.reduce((prev, curr) => prev + curr.getShotResult(), 0));
         this.points.push([...this.points[this.movesCount - 1]]);
@@ -25,14 +25,9 @@ export class Game301 extends Game{
                             lastPoint = 0;
                     });
                 }
-                
-                if (lastPoint === 301)
-                    this.winners = [this.players[i].username];
             }
             this.points[this.movesCount][i] = lastPoint;
         }
-
-        return this.winners !== null;
     }
 
     public getClosestPoint(): number {
@@ -42,5 +37,14 @@ export class Game301 extends Game{
                 maxPoint = point;
         })
         return maxPoint;
+    }
+
+    public checkResult(): boolean{
+        this.players.forEach((player, index) => {
+            if (this.points[this.movesCount][index] === 301)
+                this.winners = [player.username];
+        })
+
+        return this.winners !== null;
     }
 }

@@ -61,15 +61,20 @@ export class GameComponent implements OnInit{
   }
 
   public saveShots(): void{
-    const playersShots: DartShot[][] = this.playersShots.value
-    .map((playerShoot: IDartShot[]) => playerShoot
-      .map(shot => new DartShot(shot.shot, shot.factor)));
-    this.isEndGame = this.game.saveShots(playersShots);
+    const playersShots = this.getPlayersShots();
+    this.game.saveShots(playersShots);
+    this.isEndGame = this.game.checkResult();
     if (this.isEndGame)
       this.winners = this.game.getWinners();
 
     this.closestPoint = this.game.getClosestPoint();
     this.pointsForm.reset();
+  }
+
+  private getPlayersShots(): DartShot[][]{
+    return this.playersShots.value
+    .map((playerShoot: IDartShot[]) => playerShoot
+      .map(shot => new DartShot(shot.shot, shot.factor)));
   }
 
   public startNewGame(): void{

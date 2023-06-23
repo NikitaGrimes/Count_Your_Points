@@ -7,30 +7,37 @@ export class Game501 extends Game{
     public dartInMove = 3;
     private limitedMoves = 20;
     private additionalMoves = 10;
+    private isLastShotDouble: boolean[];
 
     constructor(players: Player[]){
         super(players);
         this.points[0].fill(this.startPoint);
+        this.isLastShotDouble = Array(players.length).fill(false);
     }
 
-    public saveShots(shots: DartShot[][]): boolean {
+    public saveShots(shots: DartShot[][]): void {
         this.movesCount++;
         const shotsResult = shots.map(playerShot => playerShot.reduce((prev, curr) => prev + curr.getShotResult(), 0));
         this.points.push([...this.points[this.movesCount - 1]]);
         for (let i = 0; i < shotsResult.length; i++){
             let lastPoints = this.points[this.movesCount][i];
-            if (shotsResult[i] !== 0){
-                if (lastPoints - shotsResult[i] >= 2)
-                    lastPoints -= shotsResult[i];
+            if (shotsResult[i] !== 0 && lastPoints - shotsResult[i] >= 2)
+                lastPoints -= shotsResult[i];
 
-                if (lastPoints - shotsResult[i] === 0 && this.checkLastDoubleShot(shots[i])){
-                    this.winners ? this.winners.push(this.players[i].username) : (this.winners = [this.players[i].username]);
-                    lastPoints = 0;
-                }
+            this.isLastShotDouble[i] = this.checkLastDoubleShot(shots[i]);
+            if (lastPoints - shotsResult[i] === 0 && this.isLastShotDouble[i])
+                lastPoints = 0;
 
-                this.points[this.movesCount][i] = lastPoints;
-            }
+            this.points[this.movesCount][i] = lastPoints;
         }
+
+    }
+
+    public checkResult(): boolean {
+        this.players.forEach((player, index) => {
+            if (this.points[this.movesCount][index] === 0)
+                this.winners ? this.winners.push(this.players[index].username) : (this.winners = [this.players[index].username]);
+        });
 
         if (this.movesCount >= this.limitedMoves){
             const minPoint = this.getClosestPoint();
