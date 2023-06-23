@@ -5,11 +5,11 @@ export class DartShot{
 
     }
 
-    getShotResult(): number{
+    public getShotResult(): number{
         return this.shot === null ? 0 : (Math.floor(this.shot) * this.factor);
     }
 
-    isDoubleFactor(): boolean{
+    public isDoubleFactor(): boolean{
         return this.factor === 2;
     }
 }

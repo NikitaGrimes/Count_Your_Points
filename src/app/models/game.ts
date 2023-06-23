@@ -2,8 +2,8 @@ import { Player } from "./player";
 import { DartShot } from "./dart-shot";
 
 export abstract class Game {
-    abstract startPoint: number;
-    abstract dartInMove: number;
+    protected abstract startPoint: number;
+    public abstract dartInMove: number;
 
     public players: Player[]
     public points: number[][] = [];
@@ -15,9 +15,9 @@ export abstract class Game {
         this.points.push(new Array(players.length));
     }
 
-    abstract getClosestPoint(): number;
-    abstract saveShots(shots: DartShot[][]): void;
-    abstract checkResult(): boolean;
+    public abstract getClosestPoint(): number;
+    public abstract saveShots(shots: DartShot[][]): void;
+    public abstract checkResult(): boolean;
 
     public reset(): void{
         this.points = [Array(this.players.length).fill(this.startPoint)];

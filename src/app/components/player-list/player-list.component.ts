@@ -38,7 +38,7 @@ export class PlayerListComponent implements OnInit, OnDestroy{
     this.players.forEach(player => this.playersFormArray.push(this.addPlayerControl(this.playerService.checkSelectionPlayer(player.id))));
   }
 
-  public get playersFormArray(): FormArray{
+  private get playersFormArray(): FormArray{
     return this.form.get("players") as FormArray;
   }
 

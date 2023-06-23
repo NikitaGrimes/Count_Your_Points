@@ -33,7 +33,7 @@ export class GameComponent implements OnInit{
       
       const gameType = this.activateRoute.snapshot.params['gameType'];
       this.game = GameCreator.create(+gameType, this.playerService.getSelectedPlayers());
-      this.closestPoint = this.game.startPoint;
+      this.closestPoint = this.game.getClosestPoint();
       this.moveInfo = new Array(this.game.players.length).fill(0);
   }
 
