@@ -1,0 +1,28 @@
+:host{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.text{
+    color: whitesmoke;
+    font-size: 40px;
+    font-family: sans-serif;
+    padding: 0px;
+    margin-top: 15%;
+}
+
+.link{
+    color: rgb(92, 92, 92);
+    font-size: 48px;
+    font-family: sans-serif;
+    background-color: rgb(255, 215, 39);
+    opacity: 0.9;
+    border-radius: 5px;
+    padding: 10px;
+
+    &:hover{
+        opacity: 1;
+    }
+}

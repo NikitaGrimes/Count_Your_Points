@@ -11,6 +11,7 @@ import { WinnerPopupComponent } from './components/winner-popup/winner-popup.com
 import { CopyrightComponent } from './components/copyright/copyright.component';
 import { ForDirective } from './services/for.directive';
 import { ForReverseDirective } from './services/for-reverse.directive';
+import { NotFoundErrorComponent } from './components/not-found-error/not-found-error.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ForReverseDirective } from './services/for-reverse.directive';
     WinnerPopupComponent,
     CopyrightComponent,
     ForDirective,
-    ForReverseDirective
+    ForReverseDirective,
+    NotFoundErrorComponent
   ],
   imports: [
     BrowserModule,

@@ -4,12 +4,14 @@ import { AddPlayerComponent } from '../components/add-player/add-player.componen
 import { PlayerListComponent } from '../components/player-list/player-list.component';
 import { GameComponent } from '../components/game/game.component';
 import { gameGuard } from '../services/game.guard';
+import { NotFoundErrorComponent } from '../components/not-found-error/not-found-error.component';
 
 const routs: Routes = [
   {path: 'add_player', component: AddPlayerComponent},
   {path: 'players', component: PlayerListComponent},
   {path: 'game/:gameType', component: GameComponent, canActivate: [gameGuard]},
-  {path: '', redirectTo: '/players', pathMatch: 'full'}
+  {path: '', redirectTo: '/players', pathMatch: 'full'},
+  {path: '**', component: NotFoundErrorComponent}
 ]
 
 @NgModule({
