@@ -14,14 +14,14 @@ export class Game301 extends Game{
     public saveShots(shots: DartShot[][]): boolean {
         this.movesCount++;
         const shotResults = shots.map(playerShot => playerShot.reduce((prev, curr) => prev + curr.getShotResult(), 0));
-        this.points.unshift([...this.points[0]]);
+        this.points.push([...this.points[this.movesCount - 1]]);
         for (let i = 0; i < shotResults.length; i++){
-            let lastPoint = this.points[0][i];
+            let lastPoint = this.points[this.movesCount][i];
             if (shotResults[i] !== 0){
                 if (lastPoint + shotResults[i] <= 301){
                     lastPoint += shotResults[i];
                     this.players.forEach((_, index) => {
-                        if (this.points[0][index] === lastPoint)
+                        if (this.points[this.movesCount][index] === lastPoint)
                             lastPoint = 0;
                     });
                 }
@@ -29,7 +29,7 @@ export class Game301 extends Game{
                 if (lastPoint === 301)
                     this.winners = [this.players[i].username];
             }
-            this.points[0][i] = lastPoint;
+            this.points[this.movesCount][i] = lastPoint;
         }
 
         return this.winners !== null;
@@ -37,7 +37,7 @@ export class Game301 extends Game{
 
     public getClosestPoint(): number {
         let maxPoint = -Infinity;
-        this.points[0].forEach(point => {
+        this.points[this.movesCount].forEach(point => {
             if (point > maxPoint)
                 maxPoint = point;
         })

@@ -80,7 +80,7 @@ export class GameComponent implements OnInit{
     this.moveIndexInfo = moveIndex;
     if (moveIndex !== null)
       for (let index = 0; index < this.moveInfo.length; index++){
-        this.moveInfo[index] = Math.abs(this.game.points[moveIndex][index] - this.game.points[moveIndex + 1][index]);
+        this.moveInfo[index] = Math.abs(this.game.points[moveIndex][index] - this.game.points[moveIndex - 1][index]);
       }
   }
 

@@ -25,7 +25,7 @@ export abstract class Game {
     }
 
     public getCurrentPoints(): number[]{
-        return this.points[0];
+        return this.points[this.movesCount];
     }
 
     public getWinners(): string[] | null{

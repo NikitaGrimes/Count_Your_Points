@@ -10,6 +10,7 @@ import { WinnerPipe } from './services/winner.pipe';
 import { WinnerPopupComponent } from './components/winner-popup/winner-popup.component';
 import { CopyrightComponent } from './components/copyright/copyright.component';
 import { ForDirective } from './services/for.directive';
+import { ForReverseDirective } from './services/for-reverse.directive';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ForDirective } from './services/for.directive';
     WinnerPipe,
     WinnerPopupComponent,
     CopyrightComponent,
-    ForDirective
+    ForDirective,
+    ForReverseDirective
   ],
   imports: [
     BrowserModule,
