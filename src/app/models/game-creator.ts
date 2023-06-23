@@ -1,14 +1,15 @@
 import { Game } from "./game";
+import { GameType } from "./game-type";
 import { Game301 } from "./game301";
 import { Game501 } from "./game501";
 import { Player } from "./player";
 
 export class GameCreator {
-    public static create(gameType: number, players: Player[]): Game{
+    public static create(gameType: GameType, players: Player[]): Game{
         switch(gameType){
-            case 301:
+            case GameType.Game301:
               return new Game301(players);
-            case 501:
+            case GameType.Game501:
             default:
               return new Game501(players);
           }

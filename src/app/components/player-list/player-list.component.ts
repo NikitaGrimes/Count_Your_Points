@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit, OnDestroy } from '@angular/
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { GameType } from 'src/app/models/game-type';
 import { Player } from 'src/app/models/player';
 import { PlayerService } from 'src/app/services/player.service';
 
@@ -14,10 +15,11 @@ import { PlayerService } from 'src/app/services/player.service';
 export class PlayerListComponent implements OnInit, OnDestroy{
   private subscription: Subscription;
   public players: Player[] = [];
+  public gameTypes = GameType;
   public selectedPlayersNumber = 0;
   public form = this.fb.group({
     players: this.fb.array([]),
-    gameType: this.fb.control(501)
+    gameType: this.fb.control(this.gameTypes.Game501)
   });
 
   constructor(
