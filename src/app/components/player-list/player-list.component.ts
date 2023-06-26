@@ -13,7 +13,7 @@ import { PlayerService } from 'src/app/services/player.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlayerListComponent implements OnInit, OnDestroy{
-  private subscription: Subscription | null = null;
+  private subscription!: Subscription;
   public players: Player[] = [];
   public gameTypes = GameType;
   public selectedPlayersNumber = 0;
