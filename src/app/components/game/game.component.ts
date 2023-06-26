@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { IDartShot } from 'src/app/models/idart-shot';
 import { DartShot } from 'src/app/models/dart-shot';
 import { Game } from 'src/app/models/game';
@@ -22,7 +22,6 @@ export class GameComponent implements OnInit{
 
   constructor(
     private playerService: PlayerService,
-    private router: Router,
     private fb: FormBuilder,
     private activateRoute: ActivatedRoute){
       this.pointsForm = this.fb.group({
