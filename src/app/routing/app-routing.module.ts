@@ -9,7 +9,7 @@ import { NotFoundErrorComponent } from '../components/not-found-error/not-found-
 const routs: Routes = [
   {path: 'add_player', component: AddPlayerComponent},
   {path: 'players', component: PlayerListComponent},
-  {path: 'game', component: GameComponent, canActivate: [gameGuard]},
+  {path: 'game/:gameType', component: GameComponent, canActivate: [gameGuard]},
   {path: '', redirectTo: '/players', pathMatch: 'full'},
   {path: '**', component: NotFoundErrorComponent}
 ]

@@ -14,7 +14,7 @@ import { PlayerService } from 'src/app/services/player.service';
 export class PlayerListComponent implements OnInit{
   public players: Player[] = [];
   public gameTypes = GameType;
-  public selectedPlayers = this.playerService.select$.pipe(map(count => count <= 1));
+  public selectedPlayers$ = this.playerService.select$.pipe(map(count => count <= 1));
   public form = this.fb.group({
     gameType: this.fb.control(this.gameTypes.Game501)
   });

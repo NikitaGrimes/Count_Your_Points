@@ -78,8 +78,8 @@
     </div>
     <a 
         class="button button-start" 
-        [routerLink]="['/game', {gameType: gameType}]"
-        [ngClass]="{'button-disabled': selectedPlayers | async}"
+        [routerLink]="['/game', gameType]"
+        [ngClass]="{'button-disabled': selectedPlayers$ | async}"
         >
         Start
     </a>
