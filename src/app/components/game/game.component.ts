@@ -28,7 +28,7 @@ export class GameComponent implements OnInit{
         playersShots: this.fb.array([])
       });
       
-      const gameType = <string>this.activateRoute.snapshot.paramMap.get("gameType");
+      const gameType = this.activateRoute.snapshot.params["gameType"];
       this.game = GameCreator.create(+gameType, this.playerService.getSelectedPlayers());
       this.closestPoint = this.game.getClosestPoint();
       this.moveInfo = new Array(this.game.players.length).fill(0);
