@@ -13,7 +13,7 @@ import { PlayerService } from 'src/app/services/player.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlayerListComponent implements OnInit, OnDestroy{
-  private subscription: Subscription;
+  private subscription: Subscription | null = null;
   public players: Player[] = [];
   public gameTypes = GameType;
   public selectedPlayersNumber = 0;
@@ -26,14 +26,14 @@ export class PlayerListComponent implements OnInit, OnDestroy{
     private playerService: PlayerService,
     private router: Router,
     private fb: FormBuilder){
-    this.subscription = playerService.$select.subscribe(count => this.selectedPlayersNumber = count);
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscription?.unsubscribe();
   }
 
   ngOnInit(): void {
+    this.subscription = this.playerService.$select.subscribe(count => this.selectedPlayersNumber = count);
     this.players = this.playerService.getPlayers();
     this.players.forEach(player => this.playersFormArray.push(this.addPlayerControl(this.playerService.checkSelectionPlayer(player.id))));
   }
