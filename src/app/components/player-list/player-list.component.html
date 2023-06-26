@@ -23,9 +23,7 @@
             New player
         </a>
     </div>
-    <div 
-        class="list-player" 
-        formArrayName="players">
+    <div class="list-player" >
         <p 
             class="list-row" 
             *ngIf="players.length === 0">
@@ -33,11 +31,10 @@
         </p>
         <div 
             class="list-row" 
-            *ngFor="let player of players; index as i"
-            [formGroupName]="i">
+            *ngFor="let player of players">
             <input 
                 type="checkbox" 
-                formControlName="player"
+                [checked]="checkSelection(player.id)"
                 (input)="selectPlayer(player.id)"/>
             <p class="list-name">
                 {{player.username}}
@@ -65,7 +62,7 @@
                 formControlName="gameType"
                 [value]=gameTypes.Game501/>
             <label for="game501">
-                501
+                {{gameTypes.Game501}}
             </label>
         </div>
         <div class="game-selector">
@@ -75,7 +72,7 @@
                 formControlName="gameType"
                 [value]=gameTypes.Game301/>
             <label for="game301">
-                301
+                {{gameTypes.Game301}}
             </label>
         </div>
     </div>

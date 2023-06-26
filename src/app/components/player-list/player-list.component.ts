@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormBuilder } from '@angular/forms';
 import { map } from 'rxjs';
 import { GameType } from 'src/app/models/game-type';
 import { Player } from 'src/app/models/player';
@@ -17,29 +16,16 @@ export class PlayerListComponent implements OnInit{
   public gameTypes = GameType;
   public selectedPlayers = this.playerService.select$.pipe(map(count => count <= 1));
   public form = this.fb.group({
-    players: this.fb.array([]),
     gameType: this.fb.control(this.gameTypes.Game501)
   });
 
   constructor(
     private playerService: PlayerService,
-    private router: Router,
     private fb: FormBuilder){
   }
 
   ngOnInit(): void {
     this.players = this.playerService.getPlayers();
-    this.players.forEach(player => this.playersFormArray.push(this.addPlayerControl(this.playerService.checkSelectionPlayer(player.id))));
-  }
-
-  private get playersFormArray(): FormArray{
-    return this.form.get("players") as FormArray;
-  }
-
-  private addPlayerControl(isSelected: boolean): FormGroup{
-    return this.fb.group({
-      player: this.fb.control(isSelected)
-    })
   }
 
   public removePlayer(id: number): void{
@@ -56,5 +42,9 @@ export class PlayerListComponent implements OnInit{
 
   public get gameType(): GameType{
     return <GameType>this.form.controls.gameType.value;
+  }
+
+  public checkSelection(id: number): boolean{
+    return this.playerService.checkSelectionPlayer(id);
   }
 }
