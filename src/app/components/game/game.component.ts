@@ -53,7 +53,7 @@ export class GameComponent implements OnInit{
 
   public addShotGroup(): FormGroup{
     return this.fb.group({
-      shot: this.fb.control(null, {nonNullable: true, validators: [Validators.required, Validators.pattern(/\d+/)]}),
+      shot: this.fb.control(null, {nonNullable: true, validators: [Validators.required, Validators.pattern(/^\d+$/)]}),
       factor: this.fb.control(1, {nonNullable: true}),
     });
   }
