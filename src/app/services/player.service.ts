@@ -54,8 +54,7 @@ export class PlayerService {
   }
 
   public searchPlayers(term: string): Player[]{
-    if (!term.trim())
-      return this.players;
+    if (!term.trim()) return this.players;
 
     return this.players.filter(player => player.username.toLowerCase().includes(term.toLowerCase()));
   }
