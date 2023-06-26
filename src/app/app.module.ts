@@ -10,7 +10,6 @@ import { WinnerPipe } from './services/winner.pipe';
 import { WinnerPopupComponent } from './components/winner-popup/winner-popup.component';
 import { CopyrightComponent } from './components/copyright/copyright.component';
 import { ForDirective } from './services/for.directive';
-import { ForReverseDirective } from './services/for-reverse.directive';
 import { NotFoundErrorComponent } from './components/not-found-error/not-found-error.component';
 
 @NgModule({
@@ -23,7 +22,6 @@ import { NotFoundErrorComponent } from './components/not-found-error/not-found-e
     WinnerPopupComponent,
     CopyrightComponent,
     ForDirective,
-    ForReverseDirective,
     NotFoundErrorComponent
   ],
   imports: [

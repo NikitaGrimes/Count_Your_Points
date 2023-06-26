@@ -4,6 +4,7 @@
     color: rgb(92, 92, 92);
     font-size: 16px;
     height: 35px;
+    font-family: sans-serif;
 
     &:hover:enabled{
         background-color: rgb(255, 215, 39);
@@ -22,10 +23,15 @@
 }
 
 .button-new-game{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
     margin-top: auto;
     margin-bottom: auto;
     margin-right: 80px;
-    width: 150px;
+    width: 180px;
 }
 
 .button-add{
@@ -67,6 +73,11 @@
     height: 30px;
     width: 65px;
     -moz-appearance: textfield;
+
+    &.ng-touched.ng-invalid{
+        padding-left: 3px;
+        border-left: 3px solid #e44848;
+    }
 }
 
 .form-shots{
@@ -108,11 +119,16 @@
     width: 150px;
 }
 
+.game-table{
+    display: flex;
+    flex-direction: column-reverse;
+}
+
 .game-row{
     display: flex;
     justify-content: center;
 
-    &:last-child{
+    &:first-child{
         color: rgb(119, 119, 119);
     }
 }
@@ -270,6 +286,7 @@
         position: absolute;
         padding: 0px;
         margin: 0px;
+        margin-left: 5px;
         color: rgb(0, 255, 0);
         height: 0px;
         top: -3px;

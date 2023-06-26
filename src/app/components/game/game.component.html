@@ -1,10 +1,10 @@
 <div class="header">
     <app-copyright class="copyright"></app-copyright>
-    <button 
+    <a 
         class="button button-new-game" 
-        (click)="startNewGame()">
+        routerLink="/players">
         New game
-    </button>
+</a>
 </div>
 <div class="form-shots">
     <div class="shots-container">
@@ -70,7 +70,7 @@
     <button 
         class="button button-add" 
         (click)="saveShots()" 
-        [disabled]="isEndGame || pointsForm.invalid">
+        [disabled]="pointsForm.invalid">
         Add
     </button>
 </div>
@@ -83,41 +83,43 @@
             {{player.username}}
         </p>
     </div>
-    <div 
-        class="game-row" 
-        *appForReverse="game.points.length; index as i">
-        <p 
-            class="text game-move-number" 
-            *ngIf="i !== 0">
-            {{i}}
-        </p>
-        <div class="game-row-result">
-            <div 
-                class="game-point" 
-                *ngFor="let point of game.points[i]; index as j">
-                <p 
-                    class="game-point"
-                    *ngIf="moveIndexInfo !== i">
-                    {{point}}
-                </p>
-                <p 
-                    class="game-point"
-                    *ngIf="moveIndexInfo === i">
-                    {{moveInfo[j]}}
-                </p>
+    <div class="game-table">
+        <div 
+            class="game-row" 
+            *ngFor="let movePoints of game.points; index as i">
+            <p 
+                class="text game-move-number" 
+                *ngIf="i !== 0">
+                {{i}}
+            </p>
+            <div class="game-row-result">
+                <div 
+                    class="game-point" 
+                    *ngFor="let point of movePoints; index as j">
+                    <p 
+                        class="game-point"
+                        *ngIf="moveIndexInfo !== i">
+                        {{point}}
+                    </p>
+                    <p 
+                        class="game-point"
+                        *ngIf="moveIndexInfo === i">
+                        {{moveInfo[j]}}
+                    </p>
+                </div>
             </div>
+            <button 
+                class="text game-info" 
+                *ngIf="i !== 0" 
+                (mousedown)="getMoveInfo(i)" 
+                (mouseup)="getMoveInfo(null)">
+                &#9432;
+            </button>
         </div>
-        <button 
-            class="text game-info" 
-            *ngIf="i !== 0" 
-            (mousedown)="getMoveInfo(i)" 
-            (mouseup)="getMoveInfo(null)">
-            &#9432;
-        </button>
     </div>
 </div>
 <app-winner-popup 
-    *ngIf="isEndGame" 
+    *ngIf="isFinish" 
     [winners]="winners" 
     (restart)="restart()">
 </app-winner-popup>

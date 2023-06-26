@@ -19,8 +19,6 @@ export class GameComponent implements OnInit{
   public closestPoint: number;
   public pointsForm: FormGroup;
   public moveIndexInfo: number | null = null;
-  public winners: string[] | null = null;
-  public isEndGame = false;
 
   constructor(
     private playerService: PlayerService,
@@ -64,10 +62,6 @@ export class GameComponent implements OnInit{
     if (this.pointsForm.valid) {
       const playersShots = this.getPlayersShots();
       this.game.saveShots(playersShots);
-      this.isEndGame = this.game.checkResult();
-      if (this.isEndGame)
-        this.winners = this.game.getWinners();
-
       this.closestPoint = this.game.getClosestPoint();
       this.pointsForm.reset();
     }
@@ -77,10 +71,6 @@ export class GameComponent implements OnInit{
     return this.playersShots.value
     .map((playerShoot: IDartShot[]) => playerShoot
       .map(shot => new DartShot(shot.shot, shot.factor)));
-  }
-
-  public startNewGame(): void{
-    this.router.navigate(["players"]);
   }
 
   public getMoveInfo(moveIndex: number | null): void{
@@ -93,8 +83,14 @@ export class GameComponent implements OnInit{
 
   public restart(): void{
     this.game.reset();
-    this.winners = null;
-    this.isEndGame = false;
     this.closestPoint = this.game.getClosestPoint();
+  }
+
+  public get winners(): string[] | null{
+    return this.game.getWinners();
+  }
+
+  public get isFinish() : boolean{
+    return this.game.checkResult();
   }
 }

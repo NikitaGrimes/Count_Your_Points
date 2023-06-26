@@ -41,7 +41,11 @@ export class PlayerService {
   }
 
   public selectPlayer(id: number): void{
-    this.selectedIds.has(id) ? this.selectedIds.delete(id) : this.selectedIds.add(id);
+    if (this.selectedIds.has(id)) 
+      this.selectedIds.delete(id);
+    else 
+      this.selectedIds.add(id);
+      
     this.select$.next(this.selectedIds.size);
   }
 
