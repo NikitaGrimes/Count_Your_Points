@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IDartShot } from 'src/app/models/idart-shot';
 import { DartShot } from 'src/app/models/dart-shot';
@@ -31,7 +31,7 @@ export class GameComponent implements OnInit{
         playersShots: this.fb.array([])
       });
       
-      const gameType = this.activateRoute.snapshot.queryParams['gameType'];
+      const gameType = this.activateRoute.snapshot.params['gameType'];
       this.game = GameCreator.create(+gameType, this.playerService.getSelectedPlayers());
       this.closestPoint = this.game.getClosestPoint();
       this.moveInfo = new Array(this.game.players.length).fill(0);
@@ -55,20 +55,22 @@ export class GameComponent implements OnInit{
 
   public addShotGroup(): FormGroup{
     return this.fb.group({
-      shot: this.fb.control(null, {nonNullable: true}),
+      shot: this.fb.control(null, {nonNullable: true, validators: [Validators.required, Validators.pattern(/\d+/)]}),
       factor: this.fb.control(1, {nonNullable: true}),
     });
   }
 
   public saveShots(): void{
-    const playersShots = this.getPlayersShots();
-    this.game.saveShots(playersShots);
-    this.isEndGame = this.game.checkResult();
-    if (this.isEndGame)
-      this.winners = this.game.getWinners();
+    if (this.pointsForm.valid) {
+      const playersShots = this.getPlayersShots();
+      this.game.saveShots(playersShots);
+      this.isEndGame = this.game.checkResult();
+      if (this.isEndGame)
+        this.winners = this.game.getWinners();
 
-    this.closestPoint = this.game.getClosestPoint();
-    this.pointsForm.reset();
+      this.closestPoint = this.game.getClosestPoint();
+      this.pointsForm.reset();
+    }
   }
 
   private getPlayersShots(): DartShot[][]{

@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnInit, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { map } from 'rxjs';
 import { GameType } from 'src/app/models/game-type';
 import { Player } from 'src/app/models/player';
 import { PlayerService } from 'src/app/services/player.service';
@@ -12,11 +12,10 @@ import { PlayerService } from 'src/app/services/player.service';
   styleUrls: ['./player-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PlayerListComponent implements OnInit, OnDestroy{
-  private subscription!: Subscription;
+export class PlayerListComponent implements OnInit{
   public players: Player[] = [];
   public gameTypes = GameType;
-  public selectedPlayersNumber = 0;
+  public selectedPlayers = this.playerService.select$.pipe(map(count => count <= 1));
   public form = this.fb.group({
     players: this.fb.array([]),
     gameType: this.fb.control(this.gameTypes.Game501)
@@ -28,12 +27,7 @@ export class PlayerListComponent implements OnInit, OnDestroy{
     private fb: FormBuilder){
   }
 
-  ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
-  }
-
   ngOnInit(): void {
-    this.subscription = this.playerService.$select.subscribe(count => this.selectedPlayersNumber = count);
     this.players = this.playerService.getPlayers();
     this.players.forEach(player => this.playersFormArray.push(this.addPlayerControl(this.playerService.checkSelectionPlayer(player.id))));
   }
@@ -56,15 +50,11 @@ export class PlayerListComponent implements OnInit, OnDestroy{
     this.playerService.selectPlayer(id);
   }
 
-  public addPlayer(): void{
-    this.router.navigate(["add_player"]);
-  }
-
   public search(event: Event): void{
     this.players = this.playerService.searchPlayers((event.target as HTMLInputElement).value);
   }
 
-  public start(): void{
-    this.router.navigate(['/game'], {queryParams: {gameType: this.form.controls.gameType.value}});
+  public get gameType(): GameType{
+    return <GameType>this.form.controls.gameType.value;
   }
 }

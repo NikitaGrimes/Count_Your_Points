@@ -13,7 +13,7 @@ export class PlayerService {
     new Player("Google", "google@gmail.com", 3),
   ];
   public selectedIds: Set<number> = new Set();
-  public $select = new BehaviorSubject<number>(0);
+  public select$ = new BehaviorSubject<number>(0);
 
   public getPlayers(): Player[]{
     return this.players;
@@ -36,13 +36,13 @@ export class PlayerService {
   public removePlayer(id: number): void{
     const index = this.players.findIndex(player => player.id === id);
     this.selectedIds.delete(id);
-    this.$select.next(this.selectedIds.size);
+    this.select$.next(this.selectedIds.size);
     this.players.splice(index, 1);
   }
 
   public selectPlayer(id: number): void{
     this.selectedIds.has(id) ? this.selectedIds.delete(id) : this.selectedIds.add(id);
-    this.$select.next(this.selectedIds.size);
+    this.select$.next(this.selectedIds.size);
   }
 
   public checkSelectionPlayer(id: number): boolean{

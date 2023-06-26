@@ -70,7 +70,7 @@
     <button 
         class="button button-add" 
         (click)="saveShots()" 
-        [disabled]="isEndGame">
+        [disabled]="isEndGame || pointsForm.invalid">
         Add
     </button>
 </div>

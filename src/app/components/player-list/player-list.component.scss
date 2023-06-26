@@ -4,6 +4,11 @@
     height: 45px;
     font-family: sans-serif;
     opacity: 0.9;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    text-decoration: none;
 
     &:hover:enabled{
         opacity: 1;
@@ -45,12 +50,16 @@
     font-weight: bold;
     width: 100%;
 
-    &:disabled {
-        opacity: 0.7;
-    }
-
-    &:enabled:hover{
+    &:hover{
         cursor: pointer;
+    }
+}
+
+.button-disabled{
+    opacity: 0.7;
+
+    &:hover{
+        cursor: default;
     }
 }
 
@@ -189,9 +198,8 @@
     height: 50px;
     width: 100%;
 
-    &:hover{
+    input:hover{
         cursor: pointer;
-        opacity: 0.9;
     }
 }
 
