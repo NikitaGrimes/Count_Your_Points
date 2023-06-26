@@ -2,20 +2,20 @@
     width: fit-content;
 
     :first-child{
-        font-size: 210%;
+        font-size: 2.1em;
         margin-left: 2px;
-        height: 160%;
+        height: 0.7em;
     }
 
     :nth-child(2){
-        font-size: 390%;
+        font-size: 3.9em;
         font-weight: 700;
-        height: 390%;
+        height: 1em;
     }
     
     :last-child{
         float: right;
-        font-size: 90%;
+        font-size: 0.9em;
         padding-right: 3px;
     }
 
