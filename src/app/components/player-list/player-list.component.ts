@@ -65,6 +65,6 @@ export class PlayerListComponent implements OnInit, OnDestroy{
   }
 
   public start(): void{
-    this.router.navigate(['/game', this.form.controls.gameType.value]);
+    this.router.navigate(['/game'], {queryParams: {gameType: this.form.controls.gameType.value}});
   }
 }
